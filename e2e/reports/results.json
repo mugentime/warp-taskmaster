@@ -1,0 +1,183 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\playwright.config.ts",
+    "rootDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\global-setup.ts",
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "e2e/reports/html",
+          "open": "on-failure"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "e2e/reports/results.json"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 120000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 6,
+    "webServer": {
+      "command": "npm run dev",
+      "port": 5173,
+      "reuseExistingServer": true,
+      "timeout": 30000
+    }
+  },
+  "suites": [
+    {
+      "title": "specs\\create-20-dollar-bot.spec.ts",
+      "file": "specs/create-20-dollar-bot.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [],
+      "suites": [
+        {
+          "title": "$20 Bot Creation",
+          "file": "specs/create-20-dollar-bot.spec.ts",
+          "line": 10,
+          "column": 6,
+          "specs": [
+            {
+              "title": "should create a trading bot with $20 USD investment",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 20,
+                      "error": {
+                        "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'",
+                        "stack": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-04T17:36:56.679Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "794634943eb40bfbe5bc-5af967fb8a5ec7467bf5",
+              "file": "specs/create-20-dollar-bot.spec.ts",
+              "line": 11,
+              "column": 3
+            },
+            {
+              "title": "should verify bot creation with account balance check",
+              "ok": false,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 120000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 1,
+                      "parallelIndex": 0,
+                      "status": "failed",
+                      "duration": 19,
+                      "error": {
+                        "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'",
+                        "stack": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
+                      },
+                      "errors": [
+                        {
+                          "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
+                        }
+                      ],
+                      "stdout": [],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-04T17:36:58.920Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "unexpected"
+                }
+              ],
+              "id": "794634943eb40bfbe5bc-f1b2613579e9849203c3",
+              "file": "specs/create-20-dollar-bot.spec.ts",
+              "line": 173,
+              "column": 3
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-04T17:36:55.024Z",
+    "duration": 4401.903,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 2,
+    "flaky": 0
+  }
+}

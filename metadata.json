@@ -1,0 +1,6 @@
+
+{
+  "name": "Binance Futures Arbitrage Monitor",
+  "description": "A dashboard to monitor and collect specific data for Binance futures arbitrage bots, visualizing key metrics like funding rates, price spreads, and PnL.",
+  "requestFramePermissions": []
+}

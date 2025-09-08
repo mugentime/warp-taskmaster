@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-09-08T16:51:22.522Z",
+  "summary": {
+    "totalBalance": "0.00",
+    "totalPnL": "0.00",
+    "activeExchanges": 0,
+    "activeServers": 0,
+    "activeBots": 0,
+    "riskLevel": "MEDIUM"
+  },
+  "exchanges": {
+    "mainArbitrage": {
+      "error": "Request failed with status code 404"
+    }
+  },
+  "servers": {
+    "http://localhost:3000": {
+      "status": "offline",
+      "error": ""
+    },
+    "http://localhost:3001": {
+      "status": "offline",
+      "error": "Request failed with status code 404"
+    },
+    "http://localhost:8003": {
+      "status": "offline",
+      "error": ""
+    }
+  },
+  "bots": [],
+  "risks": [
+    {
+      "level": "MEDIUM",
+      "message": "3 server(s) offline - potential monitoring gaps"
+    }
+  ]
+}

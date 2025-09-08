@@ -1,0 +1,73 @@
+{
+  "id": "monitoring",
+  "name": "Trading Monitoring Workflow",
+  "description": "Continuous monitoring of trading bots and market conditions",
+  "version": "1.0.0",
+  "trigger": "scheduled",
+  "schedule": "*/5 * * * *",
+  "steps": [
+    {
+      "id": "data-collection",
+      "name": "Collect Market Data",
+      "type": "data-gathering",
+      "agent": "taskmaster",
+      "actions": [
+        "fetch_price_data",
+        "fetch_volume_data",
+        "fetch_order_book"
+      ]
+    },
+    {
+      "id": "opportunity-analysis",
+      "name": "Analyze Arbitrage Opportunities",
+      "type": "analysis",
+      "agent": "taskmaster",
+      "depends_on": ["data-collection"],
+      "actions": [
+        "calculate_price_differences",
+        "analyze_funding_rates",
+        "identify_arbitrage_opportunities"
+      ]
+    },
+    {
+      "id": "performance-tracking",
+      "name": "Track Bot Performance",
+      "type": "monitoring",
+      "agent": "taskmaster",
+      "depends_on": ["opportunity-analysis"],
+      "actions": [
+        "track_active_positions",
+        "calculate_pnl",
+        "update_performance_metrics"
+      ]
+    },
+    {
+      "id": "alert-management",
+      "name": "Manage Alerts",
+      "type": "alerting",
+      "agent": "taskmaster",
+      "depends_on": ["performance-tracking"],
+      "conditions": [
+        "profit_threshold_reached",
+        "loss_threshold_exceeded",
+        "high_volatility_detected"
+      ],
+      "actions": [
+        "send_notifications",
+        "log_alerts",
+        "trigger_emergency_actions"
+      ]
+    }
+  ],
+  "outputs": [
+    "market_data",
+    "arbitrage_opportunities",
+    "bot_performance",
+    "alerts_generated"
+  ],
+  "persistence": {
+    "enabled": true,
+    "storage": "local_files",
+    "retention": "30_days"
+  }
+}

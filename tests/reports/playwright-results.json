@@ -1,0 +1,371 @@
+{
+  "config": {
+    "configFile": "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\playwright.config.cjs",
+    "rootDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/tests/playwright",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "html",
+        {
+          "outputFolder": "tests/playwright-report",
+          "open": "never"
+        }
+      ],
+      [
+        "json",
+        {
+          "outputFile": "tests/reports/playwright-results.json"
+        }
+      ],
+      [
+        "list",
+        null
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      },
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/test-results",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/tests/playwright",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.55.0",
+    "workers": 1,
+    "webServer": {
+      "command": "npm run preview",
+      "port": 4173,
+      "reuseExistingServer": true,
+      "timeout": 120000
+    }
+  },
+  "suites": [
+    {
+      "title": "final-bot-debug.spec.cjs",
+      "file": "final-bot-debug.spec.cjs",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "Final bot creation debug with correct button text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 24917,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "🎯 Final debug: Looking for \"Create Bot\" buttons...\n"
+                    },
+                    {
+                      "text": "🔍 Bot Debug: [log] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "⏳ Waiting for funding data to load...\n"
+                    },
+                    {
+                      "text": "🎯 Found 16 \"Create Bot\" buttons\n"
+                    },
+                    {
+                      "text": "✅ Found Create Bot buttons! Testing bot creation...\n"
+                    },
+                    {
+                      "text": "🔘 Clicked first Create Bot button\n"
+                    },
+                    {
+                      "text": "✅ Bot creation modal opened\n"
+                    },
+                    {
+                      "text": "📝 Filled bot name\n"
+                    },
+                    {
+                      "text": "📝 Filled investment amount\n"
+                    },
+                    {
+                      "text": "☑️ Checked risk acknowledgment\n"
+                    },
+                    {
+                      "text": "🚀 Clicking Launch Bot...\n"
+                    },
+                    {
+                      "text": "\n=================== CONSOLE MESSAGES ===================\n"
+                    },
+                    {
+                      "text": "1. [LOG] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "=================== END MESSAGES ===================\n\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-04T12:40:54.176Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "970a38f9b798a6c65fe3-716ca27eefa34eb59bd5",
+          "file": "final-bot-debug.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "Final bot creation debug with correct button text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "firefox",
+              "projectName": "firefox",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 26583,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "🎯 Final debug: Looking for \"Create Bot\" buttons...\n"
+                    },
+                    {
+                      "text": "🔴 JS Error: [JavaScript Error: \"The stylesheet http://localhost:4173/index.css was not loaded because its MIME type, “text/html”, is not “text/css”.\" {file: \"http://localhost:4173/\" line: 0}]\n"
+                    },
+                    {
+                      "text": "🔴 JS Error: [JavaScript Error: \"The stylesheet http://localhost:4173/index.css was not loaded because its MIME type, “text/html”, is not “text/css”.\" {file: \"http://localhost:4173/\" line: 0}]\n"
+                    },
+                    {
+                      "text": "🔍 Bot Debug: [log] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "⏳ Waiting for funding data to load...\n"
+                    },
+                    {
+                      "text": "🎯 Found 16 \"Create Bot\" buttons\n"
+                    },
+                    {
+                      "text": "✅ Found Create Bot buttons! Testing bot creation...\n"
+                    },
+                    {
+                      "text": "🔘 Clicked first Create Bot button\n"
+                    },
+                    {
+                      "text": "✅ Bot creation modal opened\n"
+                    },
+                    {
+                      "text": "📝 Filled bot name\n"
+                    },
+                    {
+                      "text": "📝 Filled investment amount\n"
+                    },
+                    {
+                      "text": "☑️ Checked risk acknowledgment\n"
+                    },
+                    {
+                      "text": "🚀 Clicking Launch Bot...\n"
+                    },
+                    {
+                      "text": "\n=================== CONSOLE MESSAGES ===================\n"
+                    },
+                    {
+                      "text": "1. [ERROR] [JavaScript Error: \"The stylesheet http://localhost:4173/index.css was not loaded because its MIME type, “text/html”, is not “text/css”.\" {file: \"http://localhost:4173/\" line: 0}]\n"
+                    },
+                    {
+                      "text": "2. [ERROR] [JavaScript Error: \"The stylesheet http://localhost:4173/index.css was not loaded because its MIME type, “text/html”, is not “text/css”.\" {file: \"http://localhost:4173/\" line: 0}]\n"
+                    },
+                    {
+                      "text": "3. [LOG] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "=================== END MESSAGES ===================\n\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-04T12:41:20.912Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "970a38f9b798a6c65fe3-a235ae50e26ff4753bc5",
+          "file": "final-bot-debug.spec.cjs",
+          "line": 3,
+          "column": 1
+        },
+        {
+          "title": "Final bot creation debug with correct button text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "webkit",
+              "projectName": "webkit",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 26797,
+                  "errors": [],
+                  "stdout": [
+                    {
+                      "text": "🎯 Final debug: Looking for \"Create Bot\" buttons...\n"
+                    },
+                    {
+                      "text": "🔴 JS Error: Did not parse stylesheet at 'http://localhost:4173/index.css' because non CSS MIME types are not allowed in strict mode.\n"
+                    },
+                    {
+                      "text": "🔍 Bot Debug: [log] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "⏳ Waiting for funding data to load...\n"
+                    },
+                    {
+                      "text": "🎯 Found 16 \"Create Bot\" buttons\n"
+                    },
+                    {
+                      "text": "✅ Found Create Bot buttons! Testing bot creation...\n"
+                    },
+                    {
+                      "text": "🔘 Clicked first Create Bot button\n"
+                    },
+                    {
+                      "text": "✅ Bot creation modal opened\n"
+                    },
+                    {
+                      "text": "📝 Filled bot name\n"
+                    },
+                    {
+                      "text": "📝 Filled investment amount\n"
+                    },
+                    {
+                      "text": "☑️ Checked risk acknowledgment\n"
+                    },
+                    {
+                      "text": "🚀 Clicking Launch Bot...\n"
+                    },
+                    {
+                      "text": "\n=================== CONSOLE MESSAGES ===================\n"
+                    },
+                    {
+                      "text": "1. [ERROR] Did not parse stylesheet at 'http://localhost:4173/index.css' because non CSS MIME types are not allowed in strict mode.\n"
+                    },
+                    {
+                      "text": "2. [LOG] Found 347 valid arbitrage symbols (exist on both spot and futures)\n"
+                    },
+                    {
+                      "text": "=================== END MESSAGES ===================\n\n"
+                    }
+                  ],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2025-09-04T12:41:50.581Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "970a38f9b798a6c65fe3-a84421f4d9ed8b11b7f3",
+          "file": "final-bot-debug.spec.cjs",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2025-09-04T12:40:52.980Z",
+    "duration": 85045.639,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

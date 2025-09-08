@@ -1,0 +1,125 @@
+{
+  "name": "Desktop Commander",
+  "version": "1.0.0",
+  "description": "Desktop workspace management for Binance Futures Arbitrage Monitor",
+  
+  "workspaces": {
+    "trading": {
+      "description": "Primary trading workspace setup",
+      "windows": [
+        {
+          "id": "frontend",
+          "title": "Binance Monitor Frontend",
+          "url": "http://localhost:4173",
+          "position": { "x": 0, "y": 0, "width": 1280, "height": 720 },
+          "monitor": 1
+        },
+        {
+          "id": "backend-console",
+          "title": "Backend Server Console",
+          "process": "node",
+          "args": ["backend/server.js"],
+          "position": { "x": 1280, "y": 0, "width": 640, "height": 360 },
+          "monitor": 1
+        },
+        {
+          "id": "taskmaster-console", 
+          "title": "Taskmaster Console",
+          "process": "pwsh",
+          "workdir": "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster",
+          "position": { "x": 1280, "y": 360, "width": 640, "height": 360 },
+          "monitor": 1
+        }
+      ]
+    },
+    
+    "development": {
+      "description": "Development and testing workspace",
+      "windows": [
+        {
+          "id": "vscode",
+          "title": "VS Code",
+          "process": "code",
+          "args": ["."],
+          "position": { "x": 0, "y": 0, "width": 1920, "height": 1080 },
+          "monitor": 1
+        },
+        {
+          "id": "test-browser",
+          "title": "Test Browser",
+          "url": "http://localhost:4173",
+          "position": { "x": 1920, "y": 0, "width": 1280, "height": 720 },
+          "monitor": 2
+        },
+        {
+          "id": "playwright-tests",
+          "title": "Playwright Test Runner",
+          "process": "pwsh",
+          "args": ["-Command", "npx playwright test --ui"],
+          "position": { "x": 1920, "y": 720, "width": 1280, "height": 360 },
+          "monitor": 2
+        }
+      ]
+    },
+    
+    "monitoring": {
+      "description": "System monitoring and logs workspace",
+      "windows": [
+        {
+          "id": "system-monitor",
+          "title": "System Monitor",
+          "process": "perfmon",
+          "position": { "x": 0, "y": 0, "width": 640, "height": 480 },
+          "monitor": 1
+        },
+        {
+          "id": "backend-logs",
+          "title": "Backend Logs",
+          "process": "pwsh",
+          "args": ["-Command", "Get-Content backend/logs/app.log -Wait"],
+          "position": { "x": 640, "y": 0, "width": 640, "height": 480 },
+          "monitor": 1
+        },
+        {
+          "id": "network-monitor", 
+          "title": "Network Monitor",
+          "process": "pwsh",
+          "args": ["-Command", "netstat -b 5"],
+          "position": { "x": 0, "y": 480, "width": 1280, "height": 600 },
+          "monitor": 1
+        }
+      ]
+    }
+  },
+  
+  "shortcuts": {
+    "Ctrl+Alt+T": "switch-workspace:trading",
+    "Ctrl+Alt+D": "switch-workspace:development", 
+    "Ctrl+Alt+M": "switch-workspace:monitoring",
+    "Ctrl+Alt+R": "restart-services",
+    "Ctrl+Alt+S": "show-status",
+    "Win+Alt+Q": "quick-test"
+  },
+  
+  "services": {
+    "backend": {
+      "name": "Backend Server",
+      "command": "node backend/server.js",
+      "port": 3001,
+      "healthCheck": "http://localhost:3001/api/v1/test"
+    },
+    "frontend": {
+      "name": "Frontend Preview",
+      "command": "npm run preview",
+      "port": 4173,
+      "healthCheck": "http://localhost:4173"
+    }
+  },
+  
+  "environment": {
+    "NODE_ENV": "development",
+    "DESKTOP_COMMANDER_ACTIVE": "true",
+    "AUTO_START_SERVICES": true,
+    "LOG_LEVEL": "info"
+  }
+}

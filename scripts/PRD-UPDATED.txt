@@ -1,0 +1,170 @@
+<context>
+# Overview  
+This is a personal fully-automated trading system designed to identify and execute funding rate arbitrage opportunities on Binance Futures. The system eliminates manual intervention by automatically detecting profitable funding rate spreads and executing trades without user oversight. The focus is on building a robust, local-first system with optional cloud deployment flexibility.
+
+# Core Features  
+## Automated Arbitrage Detection
+- Real-time monitoring of all USDT perpetual contracts on Binance Futures
+- Automatic identification of funding rate arbitrage opportunities above configurable thresholds
+- Continuous market scanning with minimal latency for optimal trade timing
+
+## Fully Automated Execution Engine  
+- Zero-click trade execution based on predefined risk parameters
+- Simultaneous spot buy + futures short execution for funding rate capture
+- Position management with automatic profit realization and loss prevention
+- Portfolio rebalancing to maintain optimal capital allocation
+
+## Flexible Architecture
+- Local-first development with cloud deployment options
+- Robust API design with proper environment configuration
+- Scalable architecture that works reliably in any environment
+- Health monitoring and automatic recovery mechanisms
+</context>
+
+<PRD>
+# Technical Architecture  
+## System Components
+### Backend Services
+- **Trade Execution Service**: Handles Binance API interactions and order management
+- **Market Data Service**: Real-time funding rate monitoring and opportunity detection  
+- **Risk Management Service**: Position sizing, stop-loss, and portfolio limits
+- **Notification Service**: Alerts, logging, and performance reporting
+
+### Frontend Application
+- **Dashboard Interface**: React-based SPA for monitoring and configuration
+- **Authentication Layer**: Secure API key management and user session handling
+- **Real-time Updates**: WebSocket connections for live data streaming
+
+### Data Layer
+- **Position Database**: Track active trades, historical performance, and portfolio state
+- **Configuration Store**: User preferences, risk parameters, and system settings
+- **Audit Trail**: Complete transaction history and system event logging
+
+## APIs and Integrations
+- **Binance Spot API**: Account balance, order execution, trade history
+- **Binance Futures API**: Position management, funding rate data, market data
+- **Internal REST API**: Communication between frontend and backend services
+- **WebSocket Streams**: Real-time market data and position updates
+
+## Infrastructure Requirements
+- **Local Development**: Primary focus with full functionality locally
+- **Database**: JSON file-based storage for simplicity, with SQLite upgrade path
+- **Monitoring**: Application logging, error tracking, and performance metrics
+- **Security**: API key encryption, secure communication channels, input validation
+
+# Development Roadmap  
+## Phase 1: Core Foundation (Current Focus)
+### 1.1 Market Data Engine
+- Implement real-time funding rate monitoring for all USDT perpetual contracts
+- Create opportunity scoring algorithm based on funding rate spreads and liquidity
+- Add market condition filters to avoid trading during high volatility periods
+- Build data validation and anomaly detection to prevent bad trade signals
+
+### 1.2 Trade Execution System
+- Develop atomic trade execution for simultaneous spot/futures positions
+- Implement position sizing algorithm based on account balance and risk tolerance
+- Add order management with proper error handling and retry mechanisms
+- Create position reconciliation system to ensure data consistency
+
+### 1.3 Risk Management Framework
+- Build portfolio-level risk controls with maximum exposure limits
+- Implement per-trade stop-loss and take-profit automation
+- Add market condition monitoring to pause trading during adverse conditions
+- Create emergency position closing mechanisms for extreme scenarios
+
+## Phase 2: Automation & Intelligence
+### 2.1 Autonomous Operation
+- Complete end-to-end automation without manual intervention
+- Implement intelligent parameter adjustment based on market conditions
+- Add self-healing capabilities for common failure scenarios
+- Create comprehensive monitoring and alerting for unattended operation
+
+### 2.2 Performance Optimization
+- Optimize execution speed to capture fleeting arbitrage opportunities
+- Implement intelligent trade scheduling to minimize market impact
+- Add advanced position management for complex arbitrage strategies
+- Create backtesting framework for strategy validation
+
+### 2.3 Enhanced Monitoring
+- Build comprehensive performance analytics and reporting
+- Add predictive alerts for potential issues before they occur
+- Implement cost analysis to ensure profitability after fees
+- Create detailed audit trails for regulatory compliance
+
+## Phase 3: Advanced Features
+### 3.1 Multi-Strategy Support
+- Support for different arbitrage strategies beyond funding rate
+- Cross-exchange arbitrage capabilities
+- Statistical arbitrage and mean reversion strategies
+- Portfolio diversification across multiple strategies
+
+### 3.2 Cloud Deployment (Optional)
+- Docker containerization for easy deployment
+- Support for various cloud providers (AWS, GCP, Azure)
+- Kubernetes deployment manifests
+- CI/CD pipeline for automated deployments
+
+# Logical Dependency Chain
+## Foundation Layer (Must Complete First)
+1. **Market Data Integration** - Required before any trading logic
+2. **Basic Trade Execution** - Manual execution capabilities first
+3. **Position Management** - Track and manage individual trades
+4. **Risk Controls** - Safety mechanisms before automation
+
+## Automation Layer (Build Upon Foundation)
+5. **Automated Decision Engine** - AI-driven trade selection
+6. **Full Automation** - Unattended operation capabilities
+7. **Advanced Monitoring** - Production-grade observability
+8. **Performance Optimization** - Fine-tuning for maximum profitability
+
+# Risks and Mitigations  
+## Technical Challenges
+### Risk: Binance API Rate Limits
+- **Likelihood**: High - Automated systems can easily exceed limits
+- **Mitigation**: Implement intelligent request throttling, API key rotation, and caching strategies
+- **Monitoring**: Real-time API usage tracking with proactive limit warnings
+
+### Risk: Market Data Quality Issues
+- **Likelihood**: Medium - External data dependency creates reliability concerns
+- **Mitigation**: Multiple data source validation, anomaly detection, and circuit breakers
+- **Fallback**: Manual override capabilities and conservative default behaviors
+
+## Trading Risks
+### Risk: Automated Trading Losses
+- **Likelihood**: High - Market conditions can change rapidly
+- **Mitigation**: Strict position sizing, stop-loss automation, and maximum drawdown limits
+- **Safeguards**: Emergency stop mechanisms and real-time portfolio monitoring
+
+### Risk: API Key Compromise
+- **Likelihood**: Medium - Security vulnerabilities in automated systems
+- **Mitigation**: Hardware security modules, API key rotation, and minimal permission principle
+- **Detection**: Unusual activity monitoring and immediate alert systems
+
+## Operational Risks
+### Risk: System Downtime During Profitable Opportunities
+- **Likelihood**: Medium - Infrastructure and dependency failures
+- **Mitigation**: Local redundancy, health monitoring, and automatic failover
+- **Recovery**: Rapid restart procedures and manual trading capabilities
+
+# User Experience  
+## Primary User: Personal Trader
+- Tech-savvy individual seeking passive income through automated arbitrage
+- Requires minimal daily interaction - system should run independently
+- Values security, reliability, and transparent profit tracking
+
+## Key User Flows
+- **Setup Flow**: Configure API keys, set risk parameters, start local system
+- **Monitoring Flow**: Review performance metrics, profit/loss, active positions
+- **Maintenance Flow**: Adjust parameters, handle alerts, system health checks
+
+## UI/UX Considerations
+- Clean dashboard showing real-time P&L, active positions, and system status
+- Mobile-responsive design for monitoring on-the-go
+- Alert system for critical events (failed trades, API errors, significant losses)
+
+# Appendix  
+## Research Findings
+- Funding rate arbitrage opportunities typically last 15-45 minutes
+- Binance API allows up to 1200 requests per minute with proper weight management
+- Typical funding rate arbitrage yields 0.01% - 0.375% every 8 hours
+- Local development provides fastest iteration and debugging capabilities

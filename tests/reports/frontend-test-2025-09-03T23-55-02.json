@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-09-03T23:55:01.419Z",
+  "frontendUrl": "http://localhost:4173",
+  "backendUrl": "http://localhost:3001/api/v1",
+  "tests": [
+    {
+      "name": "Frontend Availability",
+      "startTime": "2025-09-03T23:55:01.429Z",
+      "status": "FAIL",
+      "duration": 23,
+      "error": "",
+      "data": null
+    },
+    {
+      "name": "Backend Connection",
+      "startTime": "2025-09-03T23:55:01.452Z",
+      "status": "PASS",
+      "duration": 312,
+      "error": null,
+      "data": {
+        "success": true,
+        "message": "Binance API connection successful",
+        "data": true
+      }
+    },
+    {
+      "name": "Connection Endpoint",
+      "startTime": "2025-09-03T23:55:01.765Z",
+      "status": "PASS",
+      "duration": 464,
+      "error": null,
+      "data": {
+        "totalAssets": 10,
+        "totalValue": "0.00",
+        "assetsFound": [
+          "EDG",
+          "LDUSDT",
+          "LDUSDC",
+          "DON",
+          "LDSKL",
+          "ETHW",
+          "LDBNSOL",
+          "LDBIO",
+          "LDSHELL",
+          "LDSPK"
+        ],
+        "balanceData": {
+          "totalWalletBalance": "0.00",
+          "usdtAvailableBalance": "0.00",
+          "totalValueUSDT": "0.00",
+          "totalAssets": 10,
+          "detailedBalances": [
+            {
+              "asset": "EDG",
+              "free": "181.84465054",
+              "locked": "0.00000000",
+              "total": "181.84465054",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDUSDT",
+              "free": "0.01372096",
+              "locked": "0.00000000",
+              "total": "0.01372096",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDUSDC",
+              "free": "0.02093362",
+              "locked": "0.00000000",
+              "total": "0.02093362",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "DON",
+              "free": "0.00468598",
+              "locked": "0.00000000",
+              "total": "0.00468598",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDSKL",
+              "free": "0.00009215",
+              "locked": "0.00000000",
+              "total": "0.00009215",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "ETHW",
+              "free": "0.00007966",
+              "locked": "0.00000000",
+              "total": "0.00007966",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDBNSOL",
+              "free": "0.00007573",
+              "locked": "0.00000000",
+              "total": "0.00007573",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDBIO",
+              "free": "0.00003126",
+              "locked": "0.00000000",
+              "total": "0.00003126",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDSHELL",
+              "free": "0.00425500",
+              "locked": "0.00000000",
+              "total": "0.00425500",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            },
+            {
+              "asset": "LDSPK",
+              "free": "0.00009512",
+              "locked": "0.00000000",
+              "total": "0.00009512",
+              "priceUSDT": "0.00000000",
+              "valueUSDT": "0.00",
+              "canConvert": false
+            }
+          ],
+          "summary": {
+            "stablecoins": "0.00",
+            "crypto": "0.00",
+            "unconvertible": 10
+          }
+        }
+      }
+    },
+    {
+      "name": "Data Integrity",
+      "startTime": "2025-09-03T23:55:02.231Z",
+      "status": "PASS",
+      "duration": 450,
+      "error": null,
+      "data": {
+        "fieldsValidated": 5,
+        "assetsValidated": 10,
+        "totalAssets": 10,
+        "structureValid": true
+      }
+    },
+    {
+      "name": "Error Handling",
+      "startTime": "2025-09-03T23:55:02.682Z",
+      "status": "PASS",
+      "duration": 3,
+      "error": null,
+      "data": {
+        "statusCode": 400,
+        "errorMessage": "Invalid verification code.",
+        "errorHandlingWorking": true
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 4,
+    "failed": 1,
+    "duration": 1.26
+  }
+}

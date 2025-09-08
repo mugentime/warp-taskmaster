@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Creation Debug Tool</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a1a1a; color: #fff; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; color: #fbbf24; }
+        input, select { width: 100%; padding: 8px; background: #374151; color: #fff; border: 1px solid #6b7280; border-radius: 4px; }
+        button { background: #fbbf24; color: #1a1a1a; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; margin: 10px 5px; }
+        button:hover { background: #f59e0b; }
+        .error { background: #dc2626; padding: 15px; border-radius: 4px; margin: 20px 0; white-space: pre-wrap; }
+        .success { background: #16a34a; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .info { background: #2563eb; padding: 15px; border-radius: 4px; margin: 20px 0; white-space: pre-wrap; }
+        #result { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Bot Creation Debug Tool</h1>
+        <p>Use this tool to test bot creation and see detailed error messages.</p>
+        
+        <div class="form-group">
+            <label for="symbol">Trading Symbol:</label>
+            <select id="symbol">
+                <option value="ETHUSDT">ETHUSDT (Ethereum)</option>
+                <option value="BTCUSDT">BTCUSDT (Bitcoin)</option>
+                <option value="ADAUSDT">ADAUSDT (Cardano)</option>
+                <option value="SOLUSDT">SOLUSDT (Solana)</option>
+                <option value="XRPUSDT">XRPUSDT (XRP)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="strategy">Strategy Type:</label>
+            <select id="strategy">
+                <option value="Short Perp">Short Perp (Buy Spot, Sell Futures)</option>
+                <option value="Long Perp">Long Perp (Sell Spot, Buy Futures)</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="investment">Investment Amount (USDT):</label>
+            <input type="number" id="investment" value="10" min="5" max="1000" step="0.01">
+        </div>
+
+        <div class="form-group">
+            <label for="leverage">Leverage:</label>
+            <select id="leverage">
+                <option value="1">1x</option>
+                <option value="2" selected>2x</option>
+                <option value="3">3x</option>
+                <option value="5">5x</option>
+                <option value="10">10x</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="apiKey">API Key:</label>
+            <input type="text" id="apiKey" placeholder="Enter your Binance API Key">
+        </div>
+
+        <div class="form-group">
+            <label for="apiSecret">API Secret:</label>
+            <input type="password" id="apiSecret" placeholder="Enter your Binance API Secret">
+        </div>
+
+        <button onclick="testBotCreation()">🚀 Test Bot Creation</button>
+        <button onclick="testConnection()">🔍 Test Backend Connection</button>
+        <button onclick="clearResults()">🧹 Clear Results</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:3001/api/v1';
+
+        async function testConnection() {
+            showInfo('Testing backend connection...');
+            
+            try {
+                const response = await fetch(`${API_BASE_URL}/test`);
+                const data = await response.json();
+                showSuccess(`✅ Backend Connection: OK\n${JSON.stringify(data, null, 2)}`);
+            } catch (error) {
+                showError(`❌ Backend Connection Failed:\n${error.message}`);
+            }
+        }
+
+        async function testBotCreation() {
+            const symbol = document.getElementById('symbol').value;
+            const strategy = document.getElementById('strategy').value;
+            const investment = parseFloat(document.getElementById('investment').value);
+            const leverage = parseInt(document.getElementById('leverage').value);
+            const apiKey = document.getElementById('apiKey').value.trim();
+            const apiSecret = document.getElementById('apiSecret').value.trim();
+
+            if (!apiKey || !apiSecret) {
+                showError('❌ Please enter your API Key and API Secret');
+                return;
+            }
+
+            const botConfig = {
+                id: `DEBUG-BOT-${Date.now()}`,
+                name: `Debug ${symbol} ${strategy} Bot`,
+                symbol: symbol,
+                strategyType: strategy,
+                investment: investment,
+                leverage: leverage,
+                autoManaged: false,
+                apiKey: apiKey,
+                apiSecret: apiSecret
+            };
+
+            showInfo(`🚀 Creating bot with configuration:\n${JSON.stringify(botConfig, null, 2)}`);
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/launch-bot`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(botConfig)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    console.error('Full error response:', errorData);
+                    
+                    let errorMessage = `❌ Bot Creation Failed (${response.status})\n\n`;
+                    errorMessage += `Message: ${errorData.message || 'Unknown error'}\n\n`;
+                    
+                    if (errorData.error) {
+                        errorMessage += `Technical Details: ${errorData.error}\n\n`;
+                    }
+                    
+                    if (errorData.troubleshooting && errorData.troubleshooting.commonCauses) {
+                        errorMessage += 'Common Causes:\n';
+                        errorData.troubleshooting.commonCauses.forEach((cause, index) => {
+                            errorMessage += `${index + 1}. ${cause}\n`;
+                        });
+                    }
+                    
+                    if (errorData.details) {
+                        errorMessage += `\nDetailed Error Info:\n${JSON.stringify(errorData.details, null, 2)}`;
+                    }
+                    
+                    showError(errorMessage);
+                    return;
+                }
+
+                const result = await response.json();
+                showSuccess(`✅ Bot Created Successfully!\n\n${JSON.stringify(result, null, 2)}`);
+
+            } catch (error) {
+                console.error('Network error:', error);
+                showError(`❌ Network Error:\n${error.message}\n\nThis usually means the backend server is not running or not accessible.`);
+            }
+        }
+
+        function showError(message) {
+            document.getElementById('result').innerHTML = `<div class="error">${message}</div>`;
+        }
+
+        function showSuccess(message) {
+            document.getElementById('result').innerHTML = `<div class="success">${message}</div>`;
+        }
+
+        function showInfo(message) {
+            document.getElementById('result').innerHTML = `<div class="info">${message}</div>`;
+        }
+
+        function clearResults() {
+            document.getElementById('result').innerHTML = '';
+        }
+
+        // Test connection on page load
+        window.onload = function() {
+            testConnection();
+        };
+    </script>
+</body>
+</html>

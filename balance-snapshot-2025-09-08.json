@@ -1,0 +1,113 @@
+{
+  "timestamp": "2025-09-08T23:50:21.520Z",
+  "date": "Mon Sep 08 2025",
+  "spot": {
+    "balances": [
+      {
+        "asset": "USDT",
+        "free": 0.24375776,
+        "locked": 0,
+        "total": 0.24375776
+      },
+      {
+        "asset": "EDG",
+        "free": 181.84465054,
+        "locked": 0,
+        "total": 181.84465054
+      },
+      {
+        "asset": "LDUSDC",
+        "free": 0.00000574,
+        "locked": 0,
+        "total": 0.00000574
+      },
+      {
+        "asset": "DON",
+        "free": 0.00468598,
+        "locked": 0,
+        "total": 0.00468598
+      },
+      {
+        "asset": "LDSKL",
+        "free": 0.00003481,
+        "locked": 0,
+        "total": 0.00003481
+      },
+      {
+        "asset": "LDALPINE",
+        "free": 0.00175238,
+        "locked": 0,
+        "total": 0.00175238
+      },
+      {
+        "asset": "ETHW",
+        "free": 0.00007966,
+        "locked": 0,
+        "total": 0.00007966
+      },
+      {
+        "asset": "LDSIGN",
+        "free": 0.01283574,
+        "locked": 0,
+        "total": 0.01283574
+      },
+      {
+        "asset": "LDSPK",
+        "free": 0.00009511,
+        "locked": 0,
+        "total": 0.00009511
+      },
+      {
+        "asset": "LDNEWT",
+        "free": 0.00002777,
+        "locked": 0,
+        "total": 0.00002777
+      }
+    ],
+    "totalAssetsUSDT": 0.24375776,
+    "accountType": "SPOT",
+    "canTrade": true
+  },
+  "futures": {
+    "totalWalletBalance": 44.05672633,
+    "totalUnrealizedProfit": 0,
+    "totalMarginBalance": 44.05672633,
+    "availableBalance": 44.05672633,
+    "totalInitialMargin": 0,
+    "activePositions": [],
+    "balances": [
+      {
+        "asset": "BNB",
+        "walletBalance": "0.04459872",
+        "unrealizedProfit": "0.00000000",
+        "marginBalance": "0.04459872",
+        "maintMargin": "0.00000000",
+        "initialMargin": "0.00000000",
+        "positionInitialMargin": "0.00000000",
+        "openOrderInitialMargin": "0.00000000",
+        "crossWalletBalance": "0.04459872",
+        "crossUnPnl": "0.00000000",
+        "availableBalance": "0.04774918",
+        "maxWithdrawAmount": "0.04459872",
+        "updateTime": 1757266401139
+      },
+      {
+        "asset": "USDT",
+        "walletBalance": "6.82560455",
+        "unrealizedProfit": "0.00000000",
+        "marginBalance": "6.82560455",
+        "maintMargin": "0.00000000",
+        "initialMargin": "0.00000000",
+        "positionInitialMargin": "0.00000000",
+        "openOrderInitialMargin": "0.00000000",
+        "crossWalletBalance": "6.82560455",
+        "crossUnPnl": "0.00000000",
+        "availableBalance": "44.04616846",
+        "maxWithdrawAmount": "6.82560455",
+        "updateTime": 1757266401206
+      }
+    ]
+  },
+  "totalUSDT": 44.30048409,
+  "unrealizedPNL": 0
+}

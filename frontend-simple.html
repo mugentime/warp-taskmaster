@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Binance Futures Arbitrage Monitor</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .loading { animation: spin 1s linear infinite; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div id="app">
+        <!-- Header -->
+        <header class="bg-gray-800 border-b border-gray-700 p-4">
+            <div class="flex justify-between items-center max-w-6xl mx-auto">
+                <h1 class="text-2xl font-bold text-yellow-400">🤖 Warp TaskMaster</h1>
+                <div class="flex space-x-4">
+                    <button onclick="checkStatus()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
+                        🔄 Refresh Status
+                    </button>
+                    <div id="connection-status" class="px-3 py-2 rounded bg-gray-700">
+                        <span class="text-gray-400">Checking...</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-6xl mx-auto p-6 space-y-6">
+            <!-- Bot Status -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h2 class="text-xl font-semibold mb-4 text-green-400">🤖 Active Bots</h2>
+                <div id="active-bots-container">
+                    <div class="flex justify-center py-8">
+                        <div class="loading w-8 h-8 border-2 border-yellow-400 border-t-transparent rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Current Best Opportunity -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h2 class="text-xl font-semibold mb-4 text-yellow-400">🏆 Current Best Opportunity</h2>
+                <div id="best-opportunity-container">
+                    <div class="flex justify-center py-8">
+                        <div class="loading w-8 h-8 border-2 border-yellow-400 border-t-transparent rounded-full"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Launch -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h2 class="text-xl font-semibold mb-4 text-blue-400">🚀 Quick Launch</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Investment (USDT)</label>
+                        <input type="number" id="investment-input" value="10" min="1" 
+                               class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Leverage</label>
+                        <select id="leverage-select" class="w-full px-3 py-2 bg-gray-700 border border-gray-600 rounded text-white">
+                            <option value="1">1x (Safe)</option>
+                            <option value="3" selected>3x (Recommended)</option>
+                            <option value="5">5x (Moderate Risk)</option>
+                        </select>
+                    </div>
+                    <div class="flex items-end">
+                        <button onclick="launchBestOpportunity()" 
+                                class="w-full bg-green-600 hover:bg-green-700 px-4 py-2 rounded font-medium">
+                            🎯 Launch Best Bot
+                        </button>
+                    </div>
+                </div>
+                <div id="launch-status" class="mt-4 hidden"></div>
+            </div>
+
+            <!-- System Status -->
+            <div class="bg-gray-800 rounded-lg p-6 border border-gray-700">
+                <h2 class="text-xl font-semibold mb-4 text-purple-400">⚙️ System Status</h2>
+                <div id="system-status" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="text-center p-4 bg-gray-700 rounded">
+                        <div class="text-sm text-gray-400">Backend API</div>
+                        <div id="backend-status" class="text-lg font-semibold">Checking...</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-700 rounded">
+                        <div class="text-sm text-gray-400">Task Master</div>
+                        <div id="taskmaster-status" class="text-lg font-semibold">Checking...</div>
+                    </div>
+                    <div class="text-center p-4 bg-gray-700 rounded">
+                        <div class="text-sm text-gray-400">Total Bots</div>
+                        <div id="total-bots" class="text-lg font-semibold">0</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Global state
+        let activeBots = [];
+        let bestOpportunity = null;
+
+        // Check backend status
+        async function checkBackendStatus() {
+            try {
+                const response = await fetch('http://localhost:3001/api/v1/status');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('backend-status').innerHTML = '🟢 Online';
+                    document.getElementById('taskmaster-status').innerHTML = '🟢 Running';
+                    document.getElementById('connection-status').innerHTML = 
+                        '<span class="text-green-400">✅ Connected</span>';
+                    return true;
+                }
+            } catch (error) {
+                document.getElementById('backend-status').innerHTML = '🔴 Offline';
+                document.getElementById('taskmaster-status').innerHTML = '🔴 Down';
+                document.getElementById('connection-status').innerHTML = 
+                    '<span class="text-red-400">❌ Disconnected</span>';
+                return false;
+            }
+            return false;
+        }
+
+        // Load active bots
+        async function loadActiveBots() {
+            try {
+                const response = await fetch('http://localhost:3001/api/v1/bots');
+                if (response.ok) {
+                    activeBots = await response.json();
+                    document.getElementById('total-bots').textContent = activeBots.length;
+                    displayActiveBots();
+                }
+            } catch (error) {
+                document.getElementById('active-bots-container').innerHTML = 
+                    '<div class="text-red-400">❌ Failed to load bots</div>';
+            }
+        }
+
+        // Display active bots
+        function displayActiveBots() {
+            const container = document.getElementById('active-bots-container');
+            
+            if (activeBots.length === 0) {
+                container.innerHTML = '<div class="text-gray-400 text-center py-8">No active bots</div>';
+                return;
+            }
+
+            const botsHtml = activeBots.map(bot => `
+                <div class="bg-gray-700 rounded p-4 border border-gray-600">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="font-semibold">${bot.name}</h3>
+                        <span class="px-2 py-1 rounded text-xs ${
+                            bot.status === 'active' ? 'bg-green-600' : 'bg-yellow-600'
+                        }">${bot.status.toUpperCase()}</span>
+                    </div>
+                    <div class="text-sm text-gray-400 space-y-1">
+                        <div>Symbol: <span class="text-white">${bot.symbol}</span></div>
+                        <div>Strategy: <span class="text-white">${bot.originalDetection?.strategyType || bot.strategyType}</span></div>
+                        <div>Investment: <span class="text-white">$${bot.originalDetection?.investment || bot.investment}</span></div>
+                    </div>
+                </div>
+            `).join('');
+
+            container.innerHTML = `<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${botsHtml}</div>`;
+        }
+
+        // Get best opportunity from backend (completely dynamic)
+        async function loadBestOpportunity() {
+            const container = document.getElementById('best-opportunity-container');
+            
+            try {
+                // Get the actual best opportunity from the backend
+                const response = await fetch('http://localhost:3001/api/v1/get-best-opportunity');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    if (data.success && data.opportunity) {
+                        const opp = data.opportunity;
+                        const strategy = opp.fundingRate < 0 ? 'Short Perp' : 'Long Perp';
+                        const rateColor = opp.fundingRate < 0 ? 'text-red-400' : 'text-green-400';
+                        const nextFunding = new Date(opp.nextFundingTime).toLocaleTimeString();
+                        
+                        container.innerHTML = `
+                            <div class="bg-gradient-to-r from-yellow-900/30 to-orange-900/30 border border-yellow-600 rounded p-4">
+                                <div class="flex justify-between items-start mb-3">
+                                    <h3 class="font-semibold text-yellow-300">🎯 Real-time Market Leader:</h3>
+                                    <span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">
+                                        Score: ${opp.opportunityScore ? opp.opportunityScore.toFixed(2) : 'N/A'}
+                                    </span>
+                                </div>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+                                    <div>
+                                        <div class="text-gray-400">Symbol</div>
+                                        <div class="font-mono font-bold">${opp.symbol}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-400">Funding Rate</div>
+                                        <div class="font-mono font-bold ${rateColor}">${(opp.fundingRate * 100).toFixed(4)}%</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-400">Strategy</div>
+                                        <div class="font-bold">${strategy}</div>
+                                    </div>
+                                    <div>
+                                        <div class="text-gray-400">Liquidity</div>
+                                        <div class="font-mono">$${(opp.liquidity / 1000000).toFixed(1)}M</div>
+                                    </div>
+                                </div>
+                                <div class="mt-3 flex justify-between items-center text-xs text-gray-400">
+                                    <span>Expected APY: ~${opp.annualizedRate}%</span>
+                                    <span>Next funding: ${nextFunding}</span>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        container.innerHTML = `
+                            <div class="bg-gray-700 rounded p-4 text-center">
+                                <div class="text-gray-400">🔍 Analyzing market...</div>
+                                <div class="text-sm text-gray-500 mt-2">Scanning all USDT pairs for opportunities</div>
+                            </div>
+                        `;
+                    }
+                } else {
+                    throw new Error('Failed to fetch opportunity');
+                }
+            } catch (error) {
+                container.innerHTML = '<div class="text-red-400 text-center py-4">❌ Failed to load opportunities</div>';
+            }
+        }
+
+        // Launch best opportunity
+        async function launchBestOpportunity() {
+            const investment = document.getElementById('investment-input').value;
+            const leverage = document.getElementById('leverage-select').value;
+            const statusDiv = document.getElementById('launch-status');
+            
+            statusDiv.classList.remove('hidden');
+            statusDiv.innerHTML = `
+                <div class="bg-blue-900/30 border border-blue-600 rounded p-4">
+                    <div class="flex items-center space-x-2">
+                        <div class="loading w-5 h-5 border-2 border-blue-400 border-t-transparent rounded-full"></div>
+                        <span>Analyzing market and launching best opportunity...</span>
+                    </div>
+                </div>
+            `;
+
+            try {
+                // Call the launch-best-opportunity script
+                const response = await fetch('http://localhost:3001/api/v1/launch-best-opportunity', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        investment: parseFloat(investment),
+                        leverage: parseInt(leverage)
+                    })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    statusDiv.innerHTML = `
+                        <div class="bg-green-900/30 border border-green-600 rounded p-4">
+                            <div class="font-semibold text-green-300">🎉 Bot Launched Successfully!</div>
+                            <div class="text-sm text-gray-300 mt-2">Check your Binance account for new positions.</div>
+                        </div>
+                    `;
+                    // Refresh bots after successful launch
+                    setTimeout(loadActiveBots, 2000);
+                } else {
+                    throw new Error('Launch failed');
+                }
+            } catch (error) {
+                statusDiv.innerHTML = `
+                    <div class="bg-red-900/30 border border-red-600 rounded p-4">
+                        <div class="font-semibold text-red-300">❌ Launch Failed</div>
+                        <div class="text-sm text-gray-300 mt-2">Please check backend logs or try the command line launcher.</div>
+                    </div>
+                `;
+            }
+        }
+
+        // Main status check function
+        async function checkStatus() {
+            await checkBackendStatus();
+            await loadActiveBots();
+            await loadBestOpportunity();
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            checkStatus();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(checkStatus, 30000);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+{
+  "name": "Binance Futures Arbitrage Monitor",
+  "description": "Personal fully-automated trading system for funding rate arbitrage with cloud deployment capabilities",
+  "tags": {
+    "main": {
+      "name": "main",
+      "description": "Main development track",
+      "tasks": []
+    }
+  },
+  "currentTag": "main",
+  "development": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Complete Claude Flow MCP Initialization and Verify Connection",
+        "description": "Implement the core initialization logic for the Claude Flow Master Control Program (MCP), including loading configurations, establishing connections to all dependent services, and verifying connectivity.",
+        "details": "The MCP initialization process is the entry point for the service and must be robust. \n1. **Configuration Loading**: Implement a module to load configuration from environment variables, with a fallback to a local `config.json` file. Key configurations include database connection strings, message queue URLs, and service ports.\n2. **Dependency Connection**: Create connection managers for each external service (e.g., PostgreSQL, RabbitMQ, Redis). Each manager should handle connection pooling, credentials, and timeouts.\n3. **Initialization Sequence**: The main application entry point should execute the following sequence:\n    a. Load configuration.\n    b. Initialize the logging service.\n    c. Connect to the primary database with robust retry logic (e.g., exponential backoff for 5 attempts).\n    d. Connect to the message queue.\n    e. Connect to the caching layer.\n    f. If all connections are successful, transition the MCP's internal state to 'RUNNING'.\n4. **Error Handling**: If any critical connection fails after all retries, the application must log a fatal error and exit with a non-zero status code to signal failure to orchestration tools (e.g., Kubernetes).\n5. **Health Check**: Implement a `/healthz` endpoint that checks the status of each critical connection and returns a 200 OK if all are healthy, or a 503 Service Unavailable if any connection is down.",
+        "testStrategy": "Verification will be performed through a combination of unit and integration tests.\n1. **Unit Tests**: Mock all external service connections. Write tests to verify that the initialization sequence calls connection functions in the correct order and with the correct parameters from a mock configuration. Test the retry logic by simulating connection failures.\n2. **Integration Tests**: Use a `docker-compose` setup to spin up instances of PostgreSQL, RabbitMQ, and Redis.\n    a. **Success Case**: Start the MCP service and verify from the logs that it successfully connects to all services. Query the `/healthz` endpoint and assert a 200 OK response with a body indicating all services are 'connected'.\n    b. **Failure Case**: Misconfigure the database password and start the MCP. Verify the application logs fatal connection errors and exits with a non-zero status code.\n    c. **Resilience Test**: Start all services successfully. Manually stop the RabbitMQ container. Query the `/healthz` endpoint and assert a 503 Service Unavailable response. Restart the RabbitMQ container and verify that the MCP automatically reconnects and the `/healthz` endpoint returns to 200 OK.",
+        "status": "done",
+        "dependencies": [],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Develop Binance Futures Trading Bot and Integrate with React Frontend",
+        "description": "Create a backend trading bot service that integrates with the Binance Futures API for automated trading, and connect it to the existing React frontend to allow user control and monitoring.",
+        "details": "1. **Backend Bot Service**: Create a new module within the application responsible for trading logic. Utilize the configuration system established in Task 1 to securely load Binance API keys and secrets from the `.env` file. Implement core trading functions using a standard Binance API library, including placing/canceling orders (limit, market), fetching account balance, and managing open positions.\n2. **API & WebSocket Integration**: Expose secure endpoints or WebSocket events through the main service for the frontend to interact with the bot (e.g., `start_bot`, `stop_bot`, `place_order`). The bot service must also push real-time updates (e.g., order fills, PnL changes, account status) back to the frontend via the established WebSocket connection.\n3. **Frontend React Components**: Develop new React components for a trading dashboard within the existing UI. This includes an order entry form (symbol, quantity, price, order type), a positions table displaying open trades, and an account information panel showing balance and margin.\n4. **State Management**: Integrate the new components with the application's state management solution (e.g., Redux, Zustand) to handle the real-time data streams from the backend, ensuring the UI is always synchronized with the bot's state and the exchange data.",
+        "testStrategy": "1. **Backend Unit Tests**: Mock the Binance API client to test the trading logic functions in isolation. Verify correct order parameter construction and proper handling of both successful and error API responses. Test the secure loading of API keys from the environment.\n2. **Frontend Component Tests**: Use Jest and React Testing Library to test the new UI components. Mock the WebSocket connection and backend API to verify that components render correctly with various data states (e.g., open positions, no positions, error messages) and that user interactions (e.g., clicking 'Buy') trigger the correct outbound events.\n3. **End-to-End (E2E) Integration Test**: Configure the bot with Binance Futures Testnet API keys. Create an E2E test script (e.g., using Cypress or Playwright) that performs a full user flow: navigating to the trading dashboard, placing a trade, verifying the trade appears in the positions table, and then closing the trade. This validates the entire communication chain from the UI to the live Testnet exchange.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Setup Backend Bot Service and Implement Core Binance API Functions",
+            "description": "Create the initial backend module for the trading bot. This includes setting up the service structure and implementing core, read-only functions using a Binance API library to fetch account and position data.",
+            "dependencies": [],
+            "details": "Create a new service module for the trading bot. Utilize the configuration system from Task 1 to securely load Binance API keys from the `.env` file. Implement functions to fetch account balance, margin information, and current open positions. Ensure proper error handling for API connection issues.\n<info added on 2025-09-04T17:33:05.172Z>\nA `SimpleBotCreator` React component has been created to interface with the `/api/v1/launch-bot` endpoint. This component allows for intuitive bot configuration, featuring real-time preflight checks, support for popular trading pairs (BTC, ETH, ADA, etc.), configurable leverage from 1x to 10x, and both dry-run and live trading modes. The backend has been updated with comprehensive order management, account status checking, and futures trading capabilities.\n</info added on 2025-09-04T17:33:05.172Z>",
+            "status": "done",
+            "testStrategy": "Unit test the secure loading of API keys. Mock the Binance API client to test the data fetching functions, verifying they correctly parse successful responses and handle API errors."
+          },
+          {
+            "id": 2,
+            "title": "Implement Order Management Logic (Place/Cancel) in Backend Service",
+            "description": "Extend the backend bot service with functionality to execute and manage trades on the Binance Futures platform.",
+            "dependencies": [
+              "2.1"
+            ],
+            "details": "Implement functions for placing new market and limit orders, and for canceling existing open orders. Ensure all required parameters (symbol, quantity, price, etc.) are correctly formatted for the Binance API. Log all trade actions.\n<info added on 2025-09-04T17:33:41.181Z>\nImplementation is complete. The order management logic is handled by `/api/v1/launch-bot` and `/api/v1/stop-bot` endpoints. The `launch-bot` endpoint processes both spot and futures orders, automatically managing symbol precision and leverage settings. The `stop-bot` endpoint handles position closure. The core logic is encapsulated within `executeLaunch()` and `executeStop()` functions, which feature robust validation, error handling, and rollback mechanisms.\n</info added on 2025-09-04T17:33:41.181Z>",
+            "status": "done",
+            "testStrategy": "Mock the Binance API client to unit test order placement and cancellation logic. Verify that order parameters are constructed correctly and that the bot's internal state is updated appropriately based on mock API responses (both success and failure)."
+          },
+          {
+            "id": 3,
+            "title": "Develop Backend API Endpoints and WebSocket for Frontend Communication",
+            "description": "Create the communication layer that allows the frontend to control the bot and receive real-time updates.",
+            "dependencies": [
+              "2.1",
+              "2.2"
+            ],
+            "details": "Expose secure REST endpoints or RPC calls for actions like `start_bot`, `stop_bot`, and `place_order`. Implement a WebSocket server that pushes real-time updates from the bot, such as order fills, PnL changes, and account status, to connected frontend clients.\n<info added on 2025-09-04T17:34:29.697Z>\nImplementation is complete. A comprehensive set of REST endpoints has been exposed, including `/api/v1/launch-bot`, `/api/v1/stop-bot`, `/api/v1/active-bots`, `/api/v1/account-status`, `/api/v1/wallet-balances`, `/api/v1/preflight-bot`, and rebalancer endpoints. For real-time communication, an efficient polling mechanism was implemented in place of the originally planned WebSocket server. The frontend utilizes `useEffect` hooks to poll for updates at 10-second intervals, which has been deemed sufficient for providing responsive live updates on bot status and account data.\n</info added on 2025-09-04T17:34:29.697Z>",
+            "status": "done",
+            "testStrategy": "Write integration tests to verify that frontend requests to the API endpoints trigger the correct backend bot functions. Test the WebSocket connection by simulating backend events and asserting that the correct data is pushed to a test client."
+          },
+          {
+            "id": 4,
+            "title": "Create React Components for the Trading Dashboard UI",
+            "description": "Develop the necessary React components to build the user-facing trading dashboard, initially populated with mock data.",
+            "dependencies": [],
+            "details": "Build three main components: 1) An order entry form with fields for symbol, quantity, price, and order type. 2) A positions table to display data for open trades (e.g., symbol, size, entry price, PnL). 3) An account information panel to show balance and margin. Style components to fit the existing UI.\n<info added on 2025-09-04T17:35:06.245Z>\nA `SimpleBotCreator` component has been implemented, featuring intuitive form inputs for selecting a trading pair, strategy type (Long/Short), investment amount, leverage, and safety options. The main `Dashboard` component has been enhanced to display both the `SimpleBotCreator` and a new `NEWTBotCreator` component side-by-side. These components include real-time preflight status indicators, strategy explanations, comprehensive error handling, and visual feedback for user actions. All components adhere to a consistent design system, utilizing a `Card` wrapper and TailwindCSS for styling.\n</info added on 2025-09-04T17:35:06.245Z>",
+            "status": "done",
+            "testStrategy": "Use component testing libraries (e.g., React Testing Library, Storybook) to test each component in isolation. Verify that they render correctly with mock props and that user interactions are handled as expected."
+          },
+          {
+            "id": 5,
+            "title": "Integrate State Management for Real-Time Backend Data",
+            "description": "Set up and configure the frontend state management solution to handle the asynchronous, real-time data streams from the backend WebSocket.",
+            "dependencies": [
+              "2.3",
+              "2.4"
+            ],
+            "details": "Using the project's chosen state management library (e.g., Redux, Zustand), create the necessary stores, slices, or reducers to manage trading data. Implement logic to connect to the backend WebSocket and update the state with incoming messages regarding account status, position updates, and order fills.\n<info added on 2025-09-04T17:35:37.781Z>\nThe implementation was completed within the `Dashboard` component using local component state via React hooks (`useState`, `useEffect`) instead of a dedicated global state library. State variables were created to manage `activeBots` (array), `accountBalance` (object), `rebalancerStatus`, `currentApiKey/Secret`, and an `isApiConnected` boolean. `useEffect` hooks handle polling intervals for bot status (10s), market data (30s), and revenue simulation, ensuring efficient updates with proper cleanup and dependency management.\n</info added on 2025-09-04T17:35:37.781Z>",
+            "status": "done",
+            "testStrategy": "Unit test the state management logic (reducers/actions). Test that WebSocket messages are correctly parsed and update the application state as expected. Use mock WebSocket events to simulate data flow."
+          },
+          {
+            "id": 6,
+            "title": "Connect Frontend Components to State and Backend API for Full Control",
+            "description": "The final integration step to create a fully functional trading dashboard by connecting the UI, state, and backend API. [Updated: 4/9/2025]",
+            "dependencies": [
+              "2.3",
+              "2.5"
+            ],
+            "details": "Connect the React components (from subtask 4) to the state management store (from subtask 5) so they display real-time data. Wire up the order entry form to dispatch actions that call the backend API endpoints (from subtask 3) to place orders. Ensure the UI provides feedback on actions (e.g., success/error notifications).\n<info added on 2025-09-04T17:36:11.631Z>\nFrontend components fully connected to state and backend API for full control\n</info added on 2025-09-04T17:36:11.631Z>",
+            "status": "done",
+            "testStrategy": "Conduct end-to-end (E2E) tests. Simulate a user filling out the order form, clicking 'submit,' and verify that the API call is made, the state is updated, and the positions table reflects the new trade."
+          }
+        ]
+      }
+    ],
+    "metadata": {
+      "created": "2025-09-03T16:58:18.255Z",
+      "updated": "2025-09-04T17:36:19.528Z",
+      "description": "Main development track for Binance Futures Arbitrage Monitor"
+    }
+  }
+}

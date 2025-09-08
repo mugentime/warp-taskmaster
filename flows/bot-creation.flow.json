@@ -1,0 +1,80 @@
+{
+  "id": "bot-creation",
+  "name": "Bot Creation Workflow",
+  "description": "Automated workflow for creating and deploying trading bots",
+  "version": "1.0.0",
+  "trigger": "manual",
+  "steps": [
+    {
+      "id": "market-analysis",
+      "name": "Analyze Market Conditions",
+      "type": "analysis",
+      "agent": "taskmaster",
+      "inputs": ["symbol", "timeframe", "capital"],
+      "actions": [
+        "fetch_market_data",
+        "calculate_volatility",
+        "identify_opportunities"
+      ]
+    },
+    {
+      "id": "parameter-configuration",
+      "name": "Configure Bot Parameters",
+      "type": "configuration",
+      "agent": "taskmaster",
+      "depends_on": ["market-analysis"],
+      "inputs": ["risk_level", "profit_target", "stop_loss"],
+      "actions": [
+        "set_position_size",
+        "configure_risk_management",
+        "set_trading_parameters"
+      ]
+    },
+    {
+      "id": "bot-creation",
+      "name": "Create Bot Instance",
+      "type": "creation",
+      "agent": "taskmaster",
+      "depends_on": ["parameter-configuration"],
+      "actions": [
+        "generate_bot_script",
+        "create_bot_config",
+        "validate_configuration"
+      ]
+    },
+    {
+      "id": "testing",
+      "name": "Test Bot Functionality",
+      "type": "testing",
+      "agent": "taskmaster",
+      "depends_on": ["bot-creation"],
+      "actions": [
+        "run_simulation",
+        "validate_api_connections",
+        "test_order_execution"
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "Deploy Bot",
+      "type": "deployment",
+      "agent": "taskmaster",
+      "depends_on": ["testing"],
+      "actions": [
+        "start_bot_process",
+        "enable_monitoring",
+        "log_deployment"
+      ]
+    }
+  ],
+  "outputs": [
+    "bot_id",
+    "deployment_status",
+    "monitoring_url",
+    "performance_metrics"
+  ],
+  "error_handling": {
+    "retry_count": 3,
+    "fallback_actions": ["rollback", "notify_user", "log_error"]
+  }
+}

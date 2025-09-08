@@ -1,0 +1,27 @@
+{
+  "name": "warp-webhook-notifier",
+  "version": "1.0.0",
+  "description": "Global webhook server for Warp task completion notifications with sound alerts",
+  "main": "warp-webhook-notifier.js",
+  "scripts": {
+    "start": "node warp-webhook-notifier.js",
+    "test": "node -e \"require('http').get('http://localhost:3001/test/success')\"",
+    "install-service": "npm run create-service",
+    "create-service": "powershell -Command \"schtasks /create /tn 'WarpNotifier' /tr 'node %cd%\\warp-webhook-notifier.js' /sc onstart /ru SYSTEM\""
+  },
+  "keywords": [
+    "webhook",
+    "notifications", 
+    "sound",
+    "warp",
+    "task-completion"
+  ],
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "author": "TaskMaster",
+  "license": "MIT"
+}
