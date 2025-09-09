@@ -1,0 +1,98 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - generic [ref=e4]:
+    - generic [ref=e5]: "[plugin:vite:react-babel]"
+    - generic [ref=e6]: "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\components\\Dashboard.tsx: Identifier 'InfoAlert' has already been declared. (24:6) 27 | <span className=\"block sm:inline\">"
+  - generic [ref=e7]:
+    - text: "C:"
+    - generic [ref=e8] [cursor=pointer]: /Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/components/Dashboard.tsx:24:6
+  - generic [ref=e9]: "22 | ); 23 | 24 | const InfoAlert: React.FC = () => ( | ^ 25 | <div className=\"bg-blue-900/30 border border-blue-700 text-blue-200 px-4 py-3 rounded-lg relative mb-6\" role=\"alert\"> 26 | <strong className=\"font-bold\">Please Note: </strong>"
+  - generic [ref=e10]:
+    - text: at constructor (
+    - generic [ref=e11] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:367:19
+    - text: ) at TypeScriptParserMixin.raise (
+    - generic [ref=e12] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:6630:19
+    - text: ) at TypeScriptScopeHandler.checkRedeclarationInScope (
+    - generic [ref=e13] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:1647:19
+    - text: ) at TypeScriptScopeHandler.declareName (
+    - generic [ref=e14] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:1613:12
+    - text: ) at TypeScriptScopeHandler.declareName (
+    - generic [ref=e15] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:4913:11
+    - text: ) at TypeScriptParserMixin.declareNameFromIdentifier (
+    - generic [ref=e16] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:7594:16
+    - text: ) at TypeScriptParserMixin.checkIdentifier (
+    - generic [ref=e17] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:7590:12
+    - text: ) at TypeScriptParserMixin.checkLVal (
+    - generic [ref=e18] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:7529:12
+    - text: ) at TypeScriptParserMixin.parseVarId (
+    - generic [ref=e19] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:13421:10
+    - text: ) at TypeScriptParserMixin.parseVarId (
+    - generic [ref=e20] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:9772:11
+    - text: ) at TypeScriptParserMixin.parseVar (
+    - generic [ref=e21] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:13392:12
+    - text: ) at TypeScriptParserMixin.parseVarStatement (
+    - generic [ref=e22] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:13239:10
+    - text: ) at TypeScriptParserMixin.parseVarStatement (
+    - generic [ref=e23] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:9498:31
+    - text: ) at TypeScriptParserMixin.parseStatementContent (
+    - generic [ref=e24] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:12860:23
+    - text: ) at TypeScriptParserMixin.parseStatementContent (
+    - generic [ref=e25] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:9532:18
+    - text: ) at TypeScriptParserMixin.parseStatementLike (
+    - generic [ref=e26] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:12776:17
+    - text: ) at TypeScriptParserMixin.parseModuleItem (
+    - generic [ref=e27] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:12753:17
+    - text: ) at TypeScriptParserMixin.parseBlockOrModuleBlockBody (
+    - generic [ref=e28] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:13325:36
+    - text: ) at TypeScriptParserMixin.parseBlockBody (
+    - generic [ref=e29] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:13318:10
+    - text: ) at TypeScriptParserMixin.parseProgram (
+    - generic [ref=e30] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:12634:10
+    - text: ) at TypeScriptParserMixin.parseTopLevel (
+    - generic [ref=e31] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:12624:25
+    - text: ) at TypeScriptParserMixin.parse (
+    - generic [ref=e32] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:14501:10
+    - text: ) at TypeScriptParserMixin.parse (
+    - generic [ref=e33] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:10149:18
+    - text: ) at parse (
+    - generic [ref=e34] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\parser\lib\index.js:14535:38
+    - text: ) at parser (
+    - generic [ref=e35] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\core\lib\parser\index.js:41:34
+    - text: ) at parser.next (<anonymous>) at normalizeFile (
+    - generic [ref=e36] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\core\lib\transformation\normalize-file.js:64:37
+    - text: ) at normalizeFile.next (<anonymous>) at run (
+    - generic [ref=e37] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\core\lib\transformation\index.js:22:50
+    - text: ) at run.next (<anonymous>) at transform (
+    - generic [ref=e38] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\core\lib\transform.js:22:33
+    - text: ) at transform.next (<anonymous>) at step (
+    - generic [ref=e39] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:261:32
+    - text: ) at
+    - generic [ref=e40] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:273:13
+    - text: at async.call.result.err.err (
+    - generic [ref=e41] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:223:11
+    - text: ) at
+    - generic [ref=e42] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:189:28
+    - text: at
+    - generic [ref=e43] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\@babel\core\lib\gensync-utils\async.js:67:7
+    - text: at
+    - generic [ref=e44] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:113:33
+    - text: at step (
+    - generic [ref=e45] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:287:14
+    - text: ) at
+    - generic [ref=e46] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:273:13
+    - text: at async.call.result.err.err (
+    - generic [ref=e47] [cursor=pointer]: C:\Users\je2al\Desktop\aplicaciones de trading\gemini binance futures\warp-taskmaster\node_modules\gensync\index.js:223:11
+  - generic [ref=e48]:
+    - text: Click outside, press
+    - generic [ref=e49]: Esc
+    - text: key, or fix the code to dismiss.
+    - text: You can also disable this overlay by setting
+    - code [ref=e50]: server.hmr.overlay
+    - text: to
+    - code [ref=e51]: "false"
+    - text: in
+    - code [ref=e52]: vite.config.ts
+    - text: .
+```

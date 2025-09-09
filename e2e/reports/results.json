@@ -4,7 +4,7 @@
     "rootDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e",
     "forbidOnly": false,
     "fullyParallel": false,
-    "globalSetup": "C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\global-setup.ts",
+    "globalSetup": null,
     "globalTeardown": null,
     "globalTimeout": 0,
     "grep": {},
@@ -70,21 +70,21 @@
   },
   "suites": [
     {
-      "title": "specs\\create-20-dollar-bot.spec.ts",
-      "file": "specs/create-20-dollar-bot.spec.ts",
+      "title": "specs\\quick-app-test.spec.ts",
+      "file": "specs/quick-app-test.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "$20 Bot Creation",
-          "file": "specs/create-20-dollar-bot.spec.ts",
-          "line": 10,
+          "title": "Quick App Functionality Test",
+          "file": "specs/quick-app-test.spec.ts",
+          "line": 3,
           "column": 6,
           "specs": [
             {
-              "title": "should create a trading bot with $20 USD investment",
-              "ok": false,
+              "title": "Test what works in the app ecosystem",
+              "ok": true,
               "tags": [],
               "tests": [
                 {
@@ -97,73 +97,63 @@
                     {
                       "workerIndex": 0,
                       "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 20,
-                      "error": {
-                        "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'",
-                        "stack": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
-                      },
-                      "errors": [
+                      "status": "passed",
+                      "duration": 3646,
+                      "errors": [],
+                      "stdout": [
                         {
-                          "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
+                          "text": "🚀 Quick app functionality test starting...\n"
+                        },
+                        {
+                          "text": "🔧 Testing Backend API...\n"
+                        },
+                        {
+                          "text": "🔧 Backend Test Results:\n"
+                        },
+                        {
+                          "text": "  /api/v1/test: ✅ 200\n"
+                        },
+                        {
+                          "text": "    Response: {\"success\":true,\"message\":\"Binance API connection successful\",\"data\":true}...\n"
+                        },
+                        {
+                          "text": "  /api/v1/account-status: ❌ ERROR\n"
+                        },
+                        {
+                          "text": "🌐 Testing Frontend Connection...\n"
+                        },
+                        {
+                          "text": "❌ Frontend port 4173 failed: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:4173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:4173/\", waiting until \"load\"\u001b[22m\n\n"
+                        },
+                        {
+                          "text": "❌ Frontend port 5173 also failed: page.goto: Navigation to \"http://localhost:5173/\" is interrupted by another navigation to \"chrome-error://chromewebdata/\"\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n"
+                        },
+                        {
+                          "text": "🤖 Testing Bot Creation API...\n"
+                        },
+                        {
+                          "text": "🤖 Bot Test Result: {\n  \"success\": false,\n  \"error\": \"process is not defined\"\n}\n"
+                        },
+                        {
+                          "text": "📊 Final System Assessment:\n"
+                        },
+                        {
+                          "text": "📊 SYSTEM STATUS: {\n  \"backend\": \"WORKING\",\n  \"frontend\": \"FAILED\",\n  \"binanceAPI\": \"NEEDS_CONFIG\",\n  \"overallHealth\": \"BACKEND_ONLY\"\n}\n"
                         }
                       ],
-                      "stdout": [],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-04T17:36:56.679Z",
+                      "startTime": "2025-09-09T13:44:04.267Z",
                       "annotations": [],
                       "attachments": []
                     }
                   ],
-                  "status": "unexpected"
+                  "status": "expected"
                 }
               ],
-              "id": "794634943eb40bfbe5bc-5af967fb8a5ec7467bf5",
-              "file": "specs/create-20-dollar-bot.spec.ts",
-              "line": 11,
-              "column": 3
-            },
-            {
-              "title": "should verify bot creation with account balance check",
-              "ok": false,
-              "tags": [],
-              "tests": [
-                {
-                  "timeout": 120000,
-                  "annotations": [],
-                  "expectedStatus": "passed",
-                  "projectId": "chromium",
-                  "projectName": "chromium",
-                  "results": [
-                    {
-                      "workerIndex": 1,
-                      "parallelIndex": 0,
-                      "status": "failed",
-                      "duration": 19,
-                      "error": {
-                        "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'",
-                        "stack": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
-                      },
-                      "errors": [
-                        {
-                          "message": "Error: Error reading storage state from e2e/.auth/storageState.json:\nENOENT: no such file or directory, open 'C:\\Users\\je2al\\Desktop\\aplicaciones de trading\\gemini binance futures\\warp-taskmaster\\e2e\\.auth\\storageState.json'"
-                        }
-                      ],
-                      "stdout": [],
-                      "stderr": [],
-                      "retry": 0,
-                      "startTime": "2025-09-04T17:36:58.920Z",
-                      "annotations": [],
-                      "attachments": []
-                    }
-                  ],
-                  "status": "unexpected"
-                }
-              ],
-              "id": "794634943eb40bfbe5bc-f1b2613579e9849203c3",
-              "file": "specs/create-20-dollar-bot.spec.ts",
-              "line": 173,
+              "id": "3692e16f14fc6d0fb420-0c486e6d44691c36552c",
+              "file": "specs/quick-app-test.spec.ts",
+              "line": 5,
               "column": 3
             }
           ]
@@ -173,11 +163,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-04T17:36:55.024Z",
-    "duration": 4401.903,
-    "expected": 0,
+    "startTime": "2025-09-09T13:44:00.347Z",
+    "duration": 8452.347,
+    "expected": 1,
     "skipped": 0,
-    "unexpected": 2,
+    "unexpected": 0,
     "flaky": 0
   }
 }

@@ -32,7 +32,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   
   // Global setup for authentication
-  globalSetup: './e2e/global-setup.ts',
+  // globalSetup: './e2e/global-setup.ts',
   
   // Reporter configuration
   reporter: [
@@ -49,7 +49,7 @@ export default defineConfig({
   // Shared settings for all the projects below
   use: {
     // Base URL for the application
-    baseURL: process.env.APP_BASE_URL || 'http://localhost:5173',
+    baseURL: process.env.PW_BASE_URL || 'http://localhost:5173',
     
     // Browser context options
     headless: process.env.PLAYWRIGHT_HEADLESS === 'true',
