@@ -12,6 +12,7 @@ import PasswordModal from './PasswordModal';
 import InfoAlert from './InfoAlert';
 import StrategyHelper from './StrategyHelper';
 import ApiKeyConfig from './ApiKeyConfig';
+import AccountStatus from './AccountStatus';
 import NEWTBotCreator from './NEWTBotCreator';
 import SimpleBotCreator from './SimpleBotCreator';
 
@@ -21,14 +22,6 @@ const LoadingSpinner: React.FC = () => (
     </div>
 );
 
-const InfoAlert: React.FC = () => (
-    <div className="bg-blue-900/30 border border-blue-700 text-blue-200 px-4 py-3 rounded-lg relative mb-6" role="alert">
-        <strong className="font-bold">Please Note: </strong>
-        <span className="block sm:inline">
-            This dashboard identifies potential funding rate arbitrage opportunities by scanning all live futures pairs. The strategies shown are for manual execution. This list may differ from the curated pairs available in Binance's official, automated "Arbitrage Bot" product.
-        </span>
-    </div>
-);
 
 // --- Development Placeholder for Mock Bots ---
 // To visualize the UI with active bots without a running backend, a developer can

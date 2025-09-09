@@ -15,6 +15,8 @@
     "test:headed": "playwright test --headed",
     "test:debug": "playwright test --debug",
     "test:e2e": "playwright test",
+    "test:e2e:dev": "cross-env PW_BASE_URL=http://localhost:5173 playwright test",
+    "test:e2e:preview": "cross-env PW_BASE_URL=http://localhost:4173 playwright test",
     "test:e2e:ui": "playwright test --ui",
     "bot:run": "cross-env NODE_ENV=production ts-node e2e/runner.ts",
     "bot:headless": "cross-env PLAYWRIGHT_HEADLESS=true npm run bot:run",

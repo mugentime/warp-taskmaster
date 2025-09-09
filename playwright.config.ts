@@ -15,7 +15,7 @@ export default defineConfig({
   testDir: './e2e',
   
   // Global test timeout
-  timeout: 120000, // 2 minutes per test
+  timeout: 60000, // 1 minute per test
   
   // Global expect timeout
   expect: {
@@ -26,7 +26,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   
   // Retry on CI only
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 2 : 1,
   
   // Opt out of parallel tests on CI
   workers: process.env.CI ? 1 : undefined,
@@ -66,6 +66,9 @@ export default defineConfig({
     // Record video on failure
     video: 'retain-on-failure',
     
+    // Run tests in headless mode by default, but allow override
+    headless: process.env.PLAYWRIGHT_HEADLESS !== 'false',
+    
     // Use authenticated state
     storageState: 'e2e/.auth/storageState.json',
     
@@ -74,7 +77,6 @@ export default defineConfig({
     
     // Additional context options for trading applications
     viewport: { width: 1920, height: 1080 },
-    permissions: ['clipboard-read', 'clipboard-write'],
     
     // User agent
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 ArbitrageBot/1.0',
@@ -100,18 +102,23 @@ export default defineConfig({
         },
       },
     },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
   
   // Folder for test artifacts such as screenshots, videos, traces, etc.
   outputDir: 'e2e/test-results/',
   
-  // Run your local dev server before starting the tests
-  webServer: process.env.CI ? undefined : {
-    command: 'npm run dev',
-    port: 5173,
-    reuseExistingServer: !process.env.CI,
-    timeout: 30000,
-  },
+  // Note: webServer disabled since we run servers as background jobs
+  // Use environment variable PW_BASE_URL to switch between dev and preview:
+  // - Dev: http://localhost:5173 (default)
+  // - Preview: http://localhost:4173
   
   // Global timeout for the entire test suite
   globalTimeout: process.env.CI ? 600000 : undefined, // 10 minutes on CI

@@ -42,7 +42,7 @@
       {
         "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e/test-results",
         "repeatEach": 1,
-        "retries": 0,
+        "retries": 1,
         "metadata": {
           "actualWorkers": 1
         },
@@ -53,7 +53,39 @@
         "testMatch": [
           "**/*.@(spec|test).?(c|m)[jt]s?(x)"
         ],
-        "timeout": 120000
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "firefox",
+        "name": "firefox",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
+      },
+      {
+        "outputDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "webkit",
+        "name": "webkit",
+        "testDir": "C:/Users/je2al/Desktop/aplicaciones de trading/gemini binance futures/warp-taskmaster/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 60000
       }
     ],
     "shard": null,
@@ -61,34 +93,29 @@
     "updateSourceMethod": "patch",
     "version": "1.55.0",
     "workers": 6,
-    "webServer": {
-      "command": "npm run dev",
-      "port": 5173,
-      "reuseExistingServer": true,
-      "timeout": 30000
-    }
+    "webServer": null
   },
   "suites": [
     {
-      "title": "specs\\quick-app-test.spec.ts",
-      "file": "specs/quick-app-test.spec.ts",
+      "title": "specs\\smoke.spec.ts",
+      "file": "specs/smoke.spec.ts",
       "column": 0,
       "line": 0,
       "specs": [],
       "suites": [
         {
-          "title": "Quick App Functionality Test",
-          "file": "specs/quick-app-test.spec.ts",
+          "title": "Smoke Tests - Basic App Functionality",
+          "file": "specs/smoke.spec.ts",
           "line": 3,
           "column": 6,
           "specs": [
             {
-              "title": "Test what works in the app ecosystem",
+              "title": "Application loads successfully and shows critical components",
               "ok": true,
               "tags": [],
               "tests": [
                 {
-                  "timeout": 120000,
+                  "timeout": 60000,
                   "annotations": [],
                   "expectedStatus": "passed",
                   "projectId": "chromium",
@@ -98,52 +125,46 @@
                       "workerIndex": 0,
                       "parallelIndex": 0,
                       "status": "passed",
-                      "duration": 3646,
+                      "duration": 28149,
                       "errors": [],
                       "stdout": [
                         {
-                          "text": "🚀 Quick app functionality test starting...\n"
+                          "text": "🚀 Starting smoke test...\n"
                         },
                         {
-                          "text": "🔧 Testing Backend API...\n"
+                          "text": "🔍 Checking for critical components...\n"
                         },
                         {
-                          "text": "🔧 Backend Test Results:\n"
+                          "text": "⏭️ Header selector not found: [data-testid=\"app-header\"]\n"
                         },
                         {
-                          "text": "  /api/v1/test: ✅ 200\n"
+                          "text": "✅ Found header element: h1\n"
                         },
                         {
-                          "text": "    Response: {\"success\":true,\"message\":\"Binance API connection successful\",\"data\":true}...\n"
+                          "text": "⏭️ Content selector not found: [data-testid=\"dashboard\"]\n"
                         },
                         {
-                          "text": "  /api/v1/account-status: ❌ ERROR\n"
+                          "text": "⏭️ Content selector not found: [data-testid=\"api-config\"]\n"
                         },
                         {
-                          "text": "🌐 Testing Frontend Connection...\n"
+                          "text": "⏭️ Content selector not found: text=\"API Configuration\"\n"
                         },
                         {
-                          "text": "❌ Frontend port 4173 failed: page.goto: net::ERR_CONNECTION_REFUSED at http://localhost:4173/\nCall log:\n\u001b[2m  - navigating to \"http://localhost:4173/\", waiting until \"load\"\u001b[22m\n\n"
+                          "text": "✅ Found content element: text=\"Live Arbitrage Opportunities\"\n"
                         },
                         {
-                          "text": "❌ Frontend port 5173 also failed: page.goto: Navigation to \"http://localhost:5173/\" is interrupted by another navigation to \"chrome-error://chromewebdata/\"\nCall log:\n\u001b[2m  - navigating to \"http://localhost:5173/\", waiting until \"load\"\u001b[22m\n\n"
+                          "text": "🎯 Found 75 interactive elements\n"
                         },
                         {
-                          "text": "🤖 Testing Bot Creation API...\n"
+                          "text": "🔍 Checking console for critical errors...\n"
                         },
                         {
-                          "text": "🤖 Bot Test Result: {\n  \"success\": false,\n  \"error\": \"process is not defined\"\n}\n"
-                        },
-                        {
-                          "text": "📊 Final System Assessment:\n"
-                        },
-                        {
-                          "text": "📊 SYSTEM STATUS: {\n  \"backend\": \"WORKING\",\n  \"frontend\": \"FAILED\",\n  \"binanceAPI\": \"NEEDS_CONFIG\",\n  \"overallHealth\": \"BACKEND_ONLY\"\n}\n"
+                          "text": "✅ Smoke test completed successfully!\n"
                         }
                       ],
                       "stderr": [],
                       "retry": 0,
-                      "startTime": "2025-09-09T13:44:04.267Z",
+                      "startTime": "2025-09-09T15:51:09.905Z",
                       "annotations": [],
                       "attachments": []
                     }
@@ -151,9 +172,53 @@
                   "status": "expected"
                 }
               ],
-              "id": "3692e16f14fc6d0fb420-0c486e6d44691c36552c",
-              "file": "specs/quick-app-test.spec.ts",
+              "id": "6afa746d4711a5a4d7df-b475e97ce27bd776d5d7",
+              "file": "specs/smoke.spec.ts",
               "line": 5,
+              "column": 3
+            },
+            {
+              "title": "Backend API is accessible and responsive",
+              "ok": true,
+              "tags": [],
+              "tests": [
+                {
+                  "timeout": 60000,
+                  "annotations": [],
+                  "expectedStatus": "passed",
+                  "projectId": "chromium",
+                  "projectName": "chromium",
+                  "results": [
+                    {
+                      "workerIndex": 0,
+                      "parallelIndex": 0,
+                      "status": "passed",
+                      "duration": 821,
+                      "errors": [],
+                      "stdout": [
+                        {
+                          "text": "🔧 Testing backend API connectivity...\n"
+                        },
+                        {
+                          "text": "🔧 Backend API Response: {\n  ok: \u001b[33mtrue\u001b[39m,\n  status: \u001b[33m200\u001b[39m,\n  data: {\n    success: \u001b[33mtrue\u001b[39m,\n    message: \u001b[32m'Binance API connection successful'\u001b[39m,\n    data: \u001b[33mtrue\u001b[39m\n  }\n}\n"
+                        },
+                        {
+                          "text": "✅ Backend API test passed!\n"
+                        }
+                      ],
+                      "stderr": [],
+                      "retry": 0,
+                      "startTime": "2025-09-09T15:51:38.412Z",
+                      "annotations": [],
+                      "attachments": []
+                    }
+                  ],
+                  "status": "expected"
+                }
+              ],
+              "id": "6afa746d4711a5a4d7df-2088d22277889bb717ca",
+              "file": "specs/smoke.spec.ts",
+              "line": 107,
               "column": 3
             }
           ]
@@ -163,9 +228,9 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2025-09-09T13:44:00.347Z",
-    "duration": 8452.347,
-    "expected": 1,
+    "startTime": "2025-09-09T15:51:07.284Z",
+    "duration": 32060.939,
+    "expected": 2,
     "skipped": 0,
     "unexpected": 0,
     "flaky": 0
