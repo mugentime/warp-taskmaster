@@ -69,8 +69,8 @@ export default defineConfig({
     // Run tests in headless mode by default, but allow override
     headless: process.env.PLAYWRIGHT_HEADLESS !== 'false',
     
-    // Use authenticated state
-    storageState: 'e2e/.auth/storageState.json',
+    // Use authenticated state (disabled for initial testing)
+    // storageState: 'e2e/.auth/storageState.json',
     
     // Ignore HTTPS errors for local development
     ignoreHTTPSErrors: true,
