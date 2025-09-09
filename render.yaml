@@ -1,0 +1,45 @@
+services:
+  # Backend Service
+  - type: web
+    name: warp-taskmaster-backend
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm ci
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: FRONTEND_ORIGIN_PROD
+        value: https://warp-taskmaster-frontend.onrender.com
+      - key: JWT_SECRET
+        generateValue: true
+      - key: API_SECRET
+        generateValue: true
+    healthCheckPath: /api/v1/test
+    
+  # Frontend Static Site
+  - type: static
+    name: warp-taskmaster-frontend
+    env: static
+    plan: free
+    region: oregon
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    pullRequestPreviewsEnabled: true
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+    envVars:
+      - key: NODE_VERSION
+        value: 18.20.0
+      - key: VITE_API_BASE_URL
+        value: https://warp-taskmaster-backend.onrender.com
+      - key: VITE_APP_NAME
+        value: TaskMaster
