@@ -3,38 +3,93 @@
 # Branch: fix/telegram-position-notifs
 
 services:
-  # Backend Service
+  # Main Backend API Service
   - type: web
-    name: warp-taskmaster-backend
+    name: taskmaster-backend
     env: node
     plan: free
     region: oregon
     repo: https://github.com/mugentime/warp-taskmaster
     branch: fix/telegram-position-notifs
     rootDir: backend
-    buildCommand: npm ci
+    buildCommand: npm install
+    startCommand: npm run server
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: FRONTEND_URL
+        sync: false
+      - key: BINANCE_API_KEY
+        sync: false
+      - key: BINANCE_API_SECRET
+        sync: false
+    healthCheckPath: /api/v1/test
+    
+  # Auto-Balance Service (as web service with background processing)
+  - type: web
+    name: taskmaster-auto-balance
+    env: node
+    plan: free
+    region: oregon
+    repo: https://github.com/mugentime/warp-taskmaster
+    branch: fix/telegram-position-notifs
+    rootDir: backend
+    buildCommand: npm install
     startCommand: npm start
     autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
-      - key: FRONTEND_ORIGIN_PROD
-        value: https://warp-taskmaster-frontend.onrender.com
-      - key: JWT_SECRET
-        generateValue: true
-      - key: API_SECRET
-        generateValue: true
-    healthCheckPath: /api/v1/test
-    
+      - key: PORT
+        value: 3000
+      - key: BINANCE_API_KEY
+        sync: false
+      - key: BINANCE_API_SECRET
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: DISCORD_WEBHOOK_URL
+        sync: false
+  # Remote Monitor Service
+  - type: web  
+    name: taskmaster-monitor
+    env: node
+    plan: free
+    region: oregon
+    repo: https://github.com/mugentime/warp-taskmaster
+    branch: fix/telegram-position-notifs
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node remote-monitor.js start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3002
+      - key: BINANCE_API_KEY
+        sync: false
+      - key: BINANCE_API_SECRET
+        sync: false
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+        
   # Frontend Static Site
   - type: static
-    name: warp-taskmaster-frontend
+    name: taskmaster-frontend
     env: static
     plan: free
     region: oregon
     repo: https://github.com/mugentime/warp-taskmaster
     branch: fix/telegram-position-notifs
-    buildCommand: npm ci && npm run build
+    buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     autoDeploy: true
     pullRequestPreviewsEnabled: true
@@ -53,6 +108,8 @@ services:
       - key: NODE_VERSION
         value: 18.20.0
       - key: VITE_API_BASE_URL
-        value: https://warp-taskmaster-backend.onrender.com
+        value: https://taskmaster-backend.onrender.com
+      - key: VITE_MONITOR_URL
+        value: https://taskmaster-monitor.onrender.com
       - key: VITE_APP_NAME
         value: TaskMaster
