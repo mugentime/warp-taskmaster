@@ -1,0 +1,50 @@
+{
+    "timestamp":  "2025-09-10T09:30:24",
+    "version":  "Claude-Flow v2.0.0-alpha.101",
+    "activeMcpServers":  [
+                             {
+                                 "name":  "github-cli",
+                                 "pid":  22336,
+                                 "running":  true
+                             }
+                         ],
+    "claudeFlow":  {
+                       "jobId":  1,
+                       "running":  true,
+                       "backgroundJob":  true
+                   },
+    "tools":  {
+                  "total":  87,
+                  "byCategory":  {
+                                     "GitHub":  8,
+                                     "Neural Networks":  15,
+                                     "DAA":  8,
+                                     "Analysis":  13,
+                                     "Swarm":  12,
+                                     "System":  8,
+                                     "Memory":  12,
+                                     "Workflow":  11
+                                 }
+              },
+    "agentPool":  {
+                      "expected":  64,
+                      "found":  65,
+                      "active":  0
+                  },
+    "memory":  {
+                   "swarmMemory":  true,
+                   "hiveMind":  true,
+                   "systemMemory":  true
+               },
+    "tradingIntegration":  {
+                               "scriptsDetected":  true,
+                               "taskMasterArchitect":  true,
+                               "configValid":  true
+                           },
+    "directories":  {
+                        "runtime":  true,
+                        "logs":  true,
+                        "status":  true,
+                        "claude":  true
+                    }
+}

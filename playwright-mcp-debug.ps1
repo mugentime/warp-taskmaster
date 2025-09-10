@@ -49,7 +49,7 @@ Write-Host "`n🎭 PLAYWRIGHT MCP COMPREHENSIVE TESTING" -ForegroundColor Magent
 Write-Host "Target: $WorkingUrl" -ForegroundColor Cyan
 
 # Test 1: Basic Page Load & Content Analysis
-Write-Host "`n📋 TEST 1: BASIC PAGE LOAD & CONTENT ANALYSIS" -ForegroundColor Yellow
+Write-Host "📋 TEST 1: BASIC PAGE LOAD AND CONTENT ANALYSIS" -ForegroundColor Yellow
 try {
     $pageResponse = Invoke-WebRequest $WorkingUrl -UseBasicParsing -TimeoutSec 20
     
@@ -158,7 +158,7 @@ if ($workingBackend) {
 }
 
 # Test 4: Performance & Resource Loading
-Write-Host "`n📋 TEST 4: PERFORMANCE & RESOURCE ANALYSIS" -ForegroundColor Yellow
+Write-Host "📋 TEST 4: PERFORMANCE AND RESOURCE ANALYSIS" -ForegroundColor Yellow
 try {
     $perfStart = Get-Date
     $perfResponse = Invoke-WebRequest $WorkingUrl -UseBasicParsing -TimeoutSec 30
@@ -182,7 +182,7 @@ try {
 }
 
 # Test 5: Error Boundary & Fallback Testing
-Write-Host "`n📋 TEST 5: ERROR HANDLING & FALLBACKS" -ForegroundColor Yellow
+Write-Host "📋 TEST 5: ERROR HANDLING AND FALLBACKS" -ForegroundColor Yellow
 $errorRoutes = @("/nonexistent", "/invalid-page", "/404-test")
 $handlesErrors = $true
 

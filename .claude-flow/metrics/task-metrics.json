@@ -1,10 +1,10 @@
 [
   {
-    "id": "cmd-status-1757038749015",
-    "type": "status",
+    "id": "cmd-agent-1757518198386",
+    "type": "agent",
     "success": true,
-    "duration": 6.980800000000045,
-    "timestamp": 1757038749022,
+    "duration": 2.8052999999999884,
+    "timestamp": 1757518198389,
     "metadata": {}
   }
 ]
