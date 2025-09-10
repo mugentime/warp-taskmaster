@@ -9,10 +9,10 @@ services:
     env: node
     plan: free
     region: oregon
-    repo: https://github.com/mugentime/taskmaster-auto-balance
+    repo: https://github.com/mugentime/warp-taskmaster
     branch: main
-    buildCommand: npm install
-    startCommand: npm run server
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && npm start
     autoDeploy: true
     envVars:
       - key: NODE_ENV
@@ -85,7 +85,7 @@ services:
     plan: free
     region: oregon
     repo: https://github.com/mugentime/warp-taskmaster
-    branch: fix/telegram-position-notifs
+    branch: main
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     autoDeploy: true
