@@ -5,13 +5,13 @@ services:
     env: node
     plan: free
     region: oregon
+    rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
+    autoDeploy: true
     envVars:
       - key: NODE_ENV
         value: production
-      - key: PORT
-        value: 3001
       - key: FRONTEND_ORIGIN_PROD
         value: https://warp-taskmaster-frontend.onrender.com
       - key: JWT_SECRET
@@ -28,7 +28,12 @@ services:
     region: oregon
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
+    autoDeploy: true
     pullRequestPreviewsEnabled: true
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
     headers:
       - path: /*
         name: X-Frame-Options
