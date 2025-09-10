@@ -1,3 +1,7 @@
+# Render Blueprint Configuration
+# Repository: https://github.com/mugentime/warp-taskmaster
+# Branch: fix/telegram-position-notifs
+
 services:
   # Backend Service
   - type: web
@@ -5,6 +9,8 @@ services:
     env: node
     plan: free
     region: oregon
+    repo: https://github.com/mugentime/warp-taskmaster
+    branch: fix/telegram-position-notifs
     rootDir: backend
     buildCommand: npm ci
     startCommand: npm start
@@ -26,6 +32,8 @@ services:
     env: static
     plan: free
     region: oregon
+    repo: https://github.com/mugentime/warp-taskmaster
+    branch: fix/telegram-position-notifs
     buildCommand: npm ci && npm run build
     staticPublishPath: ./dist
     autoDeploy: true
