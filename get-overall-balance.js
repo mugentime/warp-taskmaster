@@ -13,6 +13,7 @@ dotenv.config({ path: ['.env.local', '.env'] });
 
 const API_KEY = process.env.BINANCE_API_KEY;
 const API_SECRET = process.env.BINANCE_API_SECRET;
+const TIMESTAMP_OFFSET = parseInt(process.env.TIMESTAMP_OFFSET) || 0;
 
 const BASE_URL = 'https://api.binance.com';
 const FUTURES_URL = 'https://fapi.binance.com';
@@ -26,7 +27,7 @@ async function getUniversalTransferHistory() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     
     try {
-        const timestamp = Date.now();
+        const timestamp = Date.now() + TIMESTAMP_OFFSET;
         const queryString = `timestamp=${timestamp}`;
         const signature = createSignature(queryString, API_SECRET);
         
@@ -55,7 +56,7 @@ async function getWalletBalance() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     
     try {
-        const timestamp = Date.now();
+        const timestamp = Date.now() + TIMESTAMP_OFFSET;
         const queryString = `timestamp=${timestamp}`;
         const signature = createSignature(queryString, API_SECRET);
         
@@ -84,7 +85,7 @@ async function getCapitalBalance() {
     console.log('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━');
     
     try {
-        const timestamp = Date.now();
+        const timestamp = Date.now() + TIMESTAMP_OFFSET;
         const queryString = `timestamp=${timestamp}`;
         const signature = createSignature(queryString, API_SECRET);
         
@@ -114,7 +115,7 @@ async function getAccountSnapshot() {
     
     try {
         // Spot snapshot
-        const spotTimestamp = Date.now();
+        const spotTimestamp = Date.now() + TIMESTAMP_OFFSET;
         const spotQueryString = `type=SPOT&timestamp=${spotTimestamp}`;
         const spotSignature = createSignature(spotQueryString, API_SECRET);
         
@@ -133,7 +134,7 @@ async function getAccountSnapshot() {
         console.log('✅ Snapshot SPOT obtenido');
         
         // Futures snapshot
-        const futuresTimestamp = Date.now();
+        const futuresTimestamp = Date.now() + TIMESTAMP_OFFSET;
         const futuresQueryString = `type=FUTURES&timestamp=${futuresTimestamp}`;
         const futuresSignature = createSignature(futuresQueryString, API_SECRET);
         
@@ -182,7 +183,7 @@ async function getDetailedPortfolioBalance() {
     // Get individual balances first (we know these work)
     try {
         // Spot balance
-        const spotTimestamp = Date.now();
+        const spotTimestamp = Date.now() + TIMESTAMP_OFFSET;
         const spotQueryString = `timestamp=${spotTimestamp}`;
         const spotSignature = createSignature(spotQueryString, API_SECRET);
         
@@ -199,13 +200,42 @@ async function getDetailedPortfolioBalance() {
         
         results.spot = spotResponse.data;
         
-        // Calculate spot USDT
+        // Calculate spot USDT and all spot assets value
         const spotUSDT = results.spot.balances
             .filter(b => b.asset === 'USDT')
             .reduce((total, b) => total + parseFloat(b.free) + parseFloat(b.locked), 0);
         
-        results.overall.accounts.spot = { USDT: spotUSDT };
-        results.overall.totalUSDT += spotUSDT;
+        // Get current prices to calculate total spot value
+        try {
+            const pricesResponse = await axios.get(`${BASE_URL}/api/v3/ticker/price`);
+            const prices = {};
+            pricesResponse.data.forEach(p => {
+                prices[p.symbol] = parseFloat(p.price);
+            });
+            
+            let totalSpotValue = 0;
+            results.spot.balances.forEach(balance => {
+                const total = parseFloat(balance.free) + parseFloat(balance.locked);
+                if (total > 0) {
+                    if (balance.asset === 'USDT') {
+                        totalSpotValue += total;
+                    } else {
+                        const symbol = balance.asset + 'USDT';
+                        const price = prices[symbol];
+                        if (price) {
+                            totalSpotValue += total * price;
+                        }
+                    }
+                }
+            });
+            
+            results.overall.accounts.spot = { USDT: spotUSDT, totalValue: totalSpotValue };
+            results.overall.totalUSDT += totalSpotValue; // Use total spot value, not just USDT
+        } catch (priceError) {
+            console.log('⚠️ Could not get prices for spot asset valuation, using USDT only');
+            results.overall.accounts.spot = { USDT: spotUSDT };
+            results.overall.totalUSDT += spotUSDT;
+        }
         
         console.log(`✅ SPOT: ${spotUSDT.toFixed(6)} USDT`);
         
@@ -215,7 +245,7 @@ async function getDetailedPortfolioBalance() {
     
     try {
         // Futures balance
-        const futuresTimestamp = Date.now();
+        const futuresTimestamp = Date.now() + TIMESTAMP_OFFSET;
         const futuresQueryString = `timestamp=${futuresTimestamp}`;
         const futuresSignature = createSignature(futuresQueryString, API_SECRET);
         
@@ -273,7 +303,7 @@ async function main() {
     
     console.log('\n💎 RESUMEN OVERALL BALANCE');
     console.log('══════════════════════════════');
-    console.log(`💰 TOTAL USDT: ${portfolioBalance.overall.totalUSDT.toFixed(6)} USDT`);
+    console.log(`💰 TOTAL PORTFOLIO VALUE: $${portfolioBalance.overall.totalUSDT.toFixed(2)}`);
     console.log(`🏦 Cuentas Activas: ${portfolioBalance.overall.summary.totalAccounts}`);
     console.log(`👑 Cuenta Principal: ${portfolioBalance.overall.summary.largestAccount}`);
     console.log(`🚀 Listo para Trading: ${portfolioBalance.overall.summary.tradingReady ? 'SÍ' : 'NO'}`);
@@ -281,7 +311,11 @@ async function main() {
     console.log('\n📊 DESGLOSE POR CUENTA:');
     console.log('─────────────────────────');
     Object.entries(portfolioBalance.overall.accounts).forEach(([account, balances]) => {
-        console.log(`${account.toUpperCase()}: ${balances.USDT?.toFixed(6) || '0.000000'} USDT`);
+        if (balances.totalValue) {
+            console.log(`${account.toUpperCase()}: $${balances.totalValue.toFixed(2)} (USDT: $${balances.USDT?.toFixed(2) || '0.00'})`);
+        } else {
+            console.log(`${account.toUpperCase()}: $${balances.USDT?.toFixed(2) || '0.00'}`);
+        }
     });
     
     // Additional wallet info if available

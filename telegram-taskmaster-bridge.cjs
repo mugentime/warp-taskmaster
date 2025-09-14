@@ -89,6 +89,13 @@ async function executeTaskMasterCommand(command, args = []) {
                 output = execSync('node get-overall-balance.js', { encoding: 'utf8', timeout: 30000 });
                 break;
                 
+            case 'earnings':
+            case 'profit':
+            case 'pnl':
+                // Get earnings/profit information
+                output = execSync('node backend/full-portfolio-valuation.js', { encoding: 'utf8', timeout: 30000 });
+                break;
+                
             case 'launch':
             case 'start':
                 if (args[0]) {
@@ -181,7 +188,7 @@ async function executeTaskMasterCommand(command, args = []) {
                 break;
                 
             default:
-                output = `❌ Unknown command: ${command}\n\nAvailable commands:\n• status - Check bot status\n• balance - Check wallet balances\n• launch [symbol] - Start trading bot\n• close all - Close all positions\n• convert all - Convert assets to USDT\n• transfer <amount> <futures|spot> - Transfer funds\n• portfolio - Full portfolio report\n• health - System health check\n• debug <message> - Send debug message to TaskMaster chat\n• logs [debug] - View recent logs`;
+                output = `❌ Unknown command: ${command}\n\nAvailable commands:\n• status - Check bot status\n• balance - Check wallet balances\n• earnings - Check bot earnings/profit\n• launch [symbol] - Start trading bot\n• close all - Close all positions\n• convert all - Convert assets to USDT\n• transfer <amount> <futures|spot> - Transfer funds\n• portfolio - Full portfolio report\n• health - System health check\n• debug <message> - Send debug message to TaskMaster chat\n• logs [debug] - View recent logs`;
         }
         
         return {
@@ -242,6 +249,7 @@ async function handleTelegramCommand(message, user) {
                         `🤖 <b>Available Commands:</b>\n` +
                         `• <code>/status</code> - Check bot status\n` +
                         `• <code>/balance</code> - Check wallet balances\n` +
+                        `• <code>/earnings</code> - Check bot earnings/profit\n` +
                         `• <code>/launch [symbol]</code> - Start trading bot\n` +
                         `• <code>/close all</code> - Close all positions\n` +
                         `• <code>/convert all</code> - Convert assets to USDT\n` +
@@ -311,11 +319,12 @@ async function startBridge() {
     // Send startup notification
     try {
         await sendTelegramMessage(
-            `🌉 <b>TaskMaster Bridge Started</b>\n\n` +
+            `🌉 <b>TaskMaster Bridge Restarted</b>\n\n` +
             `✅ Connection: Active\n` +
             `🤖 TaskMaster: Connected\n` +
-            `📱 Telegram: Ready\n\n` +
-            `Send <code>/help</code> for commands!`
+            `📱 Telegram: Ready\n` +
+            `🆕 New command: <code>/earnings</code>\n\n` +
+            `Send <code>/help</code> for all commands!`
         );
         console.log('✅ Startup notification sent');
     } catch (error) {

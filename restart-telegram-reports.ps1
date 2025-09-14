@@ -57,6 +57,7 @@ function Test-TelegramConfig {
     Write-Log "✅ Telegram configuration looks good"
     return $true
 }
+}
 
 function Test-TelegramConnection {
     Write-Log "🧪 Testing Telegram notifications..."
@@ -166,6 +167,7 @@ function Start-TelegramReports {
             
             Start-Sleep -Seconds ($IntervalMinutes * 60)
         }
+        }
     }
     }
     
@@ -222,10 +224,12 @@ function Show-Status {
             } else {
                 Write-Host "💔 Job Status: NOT FOUND" -ForegroundColor Red
             }
+        }
         } else {
             Write-Host "❌ NO" -ForegroundColor Red
             Write-Host "🛑 Stopped: $($status.stopped_at)"
         }
+    }
     } else {
         Write-Host "❌ System not initialized" -ForegroundColor Red
     }

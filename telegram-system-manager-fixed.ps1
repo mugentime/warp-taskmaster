@@ -55,7 +55,7 @@ Write-Header "STARTING TELEGRAM SYSTEM"
             Set-Location $ProjectPath
             while ($true) {
                 try {
-                    $null = & node telegram-final.cjs 2>&1
+                    $null = & node telegram-clean.cjs 2>&1
                     Write-Output "Report sent at $(Get-Date -Format 'HH:mm:ss')"
                 } catch {
                     Set-Location "backend"

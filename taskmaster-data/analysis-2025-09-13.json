@@ -1,0 +1,20 @@
+{
+  "timestamp": "2025-09-13T17:01:04.460Z",
+  "daysSinceBaseline": 1,
+  "baseline": {
+    "value": 375.24482208000006,
+    "expectedDailyROI": 0.42431449999999993
+  },
+  "current": {
+    "value": 194.07571131537998,
+    "utilization": 0,
+    "activePositions": 0,
+    "totalPnL": 0
+  },
+  "performance": {
+    "actualGrowth": -181.1691107646201,
+    "expectedGrowth": 1.5922181905846173,
+    "performanceRatio": -113.78409808149468,
+    "status": "SIGNIFICANTLY_UNDERPERFORMING"
+  }
+}

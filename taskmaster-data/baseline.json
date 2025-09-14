@@ -1,0 +1,36 @@
+{
+  "timestamp": "2025-09-12T17:34:58.303Z",
+  "portfolioValue": 372.75938786000006,
+  "deployedCapital": 54.65877286666667,
+  "utilization": 14.663285391807559,
+  "activePositions": 2,
+  "expectedDailyROI": 0.40476625,
+  "expectedDailyUSD": 1.5088041957638776,
+  "topOpportunities": [
+    {
+      "symbol": "HOLOUSDT",
+      "fundingRate": -0.00850737,
+      "dailyRate": 2.5522110000000002
+    },
+    {
+      "symbol": "OMNIUSDT",
+      "fundingRate": -0.00137485,
+      "dailyRate": 0.41245499999999996
+    },
+    {
+      "symbol": "NMRUSDT",
+      "fundingRate": -0.00114718,
+      "dailyRate": 0.34415399999999996
+    },
+    {
+      "symbol": "PROVEUSDT",
+      "fundingRate": -0.00082797,
+      "dailyRate": 0.24839100000000003
+    },
+    {
+      "symbol": "BSWUSDT",
+      "fundingRate": 0.00080443,
+      "dailyRate": 0.241329
+    }
+  ]
+}

@@ -110,6 +110,8 @@ async function sendReport() {
         const message = await generateReport();
         
         console.log('📤 Sending message...');
+        console.log('Message preview:', message.substring(0, 100) + '...');
+        console.log('Message length:', message.length);
         const result = await sendTelegramMessage(message);
         
         console.log('✅ Report sent successfully!');

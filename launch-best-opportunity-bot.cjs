@@ -1,6 +1,7 @@
+require('dotenv').config();
 const axios = require('axios');
 
-async function launchBestOpportunityBot() {
+async function launchBestOpportunityBot(targetSymbol, investmentAmount) {
     console.log('🎯 Starting BEST OPPORTUNITY Bot Launcher...');
     console.log('');
     
